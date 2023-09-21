@@ -111,6 +111,32 @@ Values are:
 `Dual Directional` - Dual always takes over when pressed, otherwise Gamepad and Dual act independently.
 `None` - Gamepad input and dual directional act independently of each other.
 
+## Tilt Input
+
+![GP2040-CE Configuration - Add-Ons Tilt Input](assets/images/gpc-add-ons-tilt.png)
+
+* `Tilt 1 Pin` - The GPIO pin used for the Tilt 1 direction.
+* `Tilt 2 Pin` - The GPIO pin used for the Tilt 2 direction.
+* `Tilt Left Analog Up Pin` - The GPIO pin used for the Up direction on the Left analog stick.
+* `Tilt Left Analog Down Pin` - The GPIO pin used for the Down direction on the Left analog stick.
+* `Tilt Left Analog Left Pin` - The GPIO pin used for the Left direction on the Left analog stick.
+* `Tilt Left Analog Right Pin` - The GPIO pin used for the Right direction on the Left analog stick.
+* `Tilt Right Analog Up Pin` - The GPIO pin used for the Up direction on the Right analog stick.
+* `Tilt Right Analog Down Pin` - The GPIO pin used for the Down direction on the Right analog stick.
+* `Tilt Right Analog Left Pin` - The GPIO pin used for the Left direction on the Right analog stick.
+* `Tilt Right Analog Right Pin` - The GPIO pin used for the Right direction on the Right analog stick.
+* `Tilt SOCD Mode` - Choose the default SOCD Cleaning Mode (Neutral, Last Win, First Win). 
+
+The Tilt feature in this add-on allows users to control analog stick values on both Left and Right Analogs.
+
+Tilt 1 and Tilt 2 buttons, when pressed with directional buttons, adjust the analog values.
+
+Default settings tilt the Left stick at 65% for Tilt 1 and 35% for Tilt 2.
+
+The Right stick shifts down for Tilt 1 and up for Tilt 2 by default.
+
+Additionally, pressing Tilt 1 and Tilt 2 simultaneously allows the Right stick to function as the D-Pad directions.
+
 ## Buzzer Speaker
 
 ![GP2040-CE Configurator - Add-Ons Buzzer](assets/images/gpc-add-ons-buzzer.png)
@@ -206,7 +232,7 @@ Supported controller types and their mapping is as follows:
 
 ## USB Host Based Add-ons
 
-These addons are predicated on having and using a USB Host Port on the device. These settings are shared between the addons in this section.
+These add-ons are predicated on having and using a USB Host Port on the device. These settings are shared between the add-ons in this section.
 
 * `D+` - The GPIO Pin used to carry Data Plus between the USB Host Port and RP2040
 * `D-` - The GPIO Pin used to carry Data Minus between the USB Host Port and RP2040. This cannot be set and will be automatically determined from `D+`.
@@ -216,7 +242,7 @@ These addons are predicated on having and using a USB Host Port on the device. T
 
 ![GP2040-CE Configurator - PS Passthrough](assets/images/gpc-add-ons-ps-passthrough.png)
 
-Enabling this add-on will allow you to use a licenced 3rd party device to authenticate off of.  This addon requires that you have something like the ![USB Passthrough Board](https://github.com/OpenStickCommunity/Hardware/tree/main/USB%20Passthrough%20Board) or a board with a USB passthrough port on it already.  If you have passthrough enabled you can turn off the above `PS4 Mode` addon as the two will not work together.  Please also ensure that under the `Settings` section you have chosen PS4 mode and picked if you want the GP2040-CE unit to function as a controller or as a fightstick.
+Enabling this add-on will allow you to use a licenced 3rd party device to authenticate off of.  This add-on requires that you have something like the ![USB Passthrough Board](https://github.com/OpenStickCommunity/Hardware/tree/main/USB%20Passthrough%20Board) or a board with a USB passthrough port on it already.  If you have passthrough enabled you can turn off the above `PS4 Mode` add-on as the two will not work together.  Please also ensure that under the `Settings` section you have chosen PS4 mode and picked if you want the GP2040-CE unit to function as a controller or as a fightstick.
 
 ### Keyboard Host Configuration
 
