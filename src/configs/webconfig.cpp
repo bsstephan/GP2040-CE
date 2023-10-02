@@ -1023,7 +1023,7 @@ std::string setAddonOptions()
 	docToValue(analogADS1219Options.enabled, doc, "I2CAnalog1219InputEnabled");
 
     SliderOptions& sliderOptions = Storage::getInstance().getAddonOptions().sliderOptions;
-    docToValue(sliderOptions.defaultMode, doc, "sliderModeZero");
+    docToValue(sliderOptions.modeDefault, doc, "sliderModeZero");
     docToValue(sliderOptions.enabled, doc, "JSliderInputEnabled");
 
     PlayerNumberOptions& playerNumberOptions = Storage::getInstance().getAddonOptions().playerNumberOptions;
@@ -1433,7 +1433,7 @@ std::string getAddonOptions()
 	writeDoc(doc, "I2CAnalog1219InputEnabled", analogADS1219Options.enabled);
 
     const SliderOptions& sliderOptions = Storage::getInstance().getAddonOptions().sliderOptions;
-    writeDoc(doc, "sliderModeZero", sliderOptions.defaultMode);
+    writeDoc(doc, "sliderModeZero", sliderOptions.modeDefault);
     writeDoc(doc, "JSliderInputEnabled", sliderOptions.enabled);
 
     const PlayerNumberOptions& playerNumberOptions = Storage::getInstance().getAddonOptions().playerNumberOptions;
