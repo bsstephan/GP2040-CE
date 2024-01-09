@@ -6,7 +6,6 @@
 #include "system.h"
 #include "enums.pb.h"
 
-#include "build_info.h"
 #include "peripheralmanager.h"
 #include "storagemanager.h"
 #include "addonmanager.h"
