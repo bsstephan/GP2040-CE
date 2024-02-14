@@ -252,6 +252,15 @@ app.get('/api/getCustomTheme', (req, res) => {
 	});
 });
 
+app.get('/api/getMultiPinMappings', (req, res) => {
+	return res.send(
+		Object.entries(picoController).reduce(
+			(acc, [key]) => ({ ...acc, [key]: { buttonsMask: 0 } }),
+			{},
+		),
+	);
+});
+
 app.get('/api/getPinMappings', (req, res) => {
 	return res.send(picoController);
 });

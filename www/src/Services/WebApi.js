@@ -367,6 +367,18 @@ async function setCustomTheme(customThemeOptions) {
 			return false;
 		});
 }
+async function getMultiPinMappings() {
+	try {
+		const { data } = await axios.get(`${baseUrl}/api/getMultiPinMappings`);
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+async function setMultiPinMappings(mappings) {
+	return axios.post(`${baseUrl}/api/setMultiPinMappings`, mappings);
+}
 
 async function getPinMappings() {
 	try {
@@ -675,6 +687,8 @@ const WebApi = {
 	getHeldPins,
 	abortGetHeldPins,
 	reboot,
+	getMultiPinMappings,
+	setMultiPinMappings,
 };
 
 export default WebApi;

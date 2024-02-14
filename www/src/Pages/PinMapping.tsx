@@ -98,7 +98,8 @@ const PinsForm = ({ savePins, pins, setPinAction }: PinsFormTypes) => {
 						const labelKey = option.label.split('BUTTON_PRESS_').pop();
 						// Need to fallback as some button actions are not part of button names
 						return (
-							buttonNames[labelKey] || t(`PinMapping:actions.${option.label}`)
+							(labelKey && buttonNames[labelKey]) ||
+							t(`PinMapping:actions.${option.label}`)
 						);
 					}}
 					onChange={(change) =>
