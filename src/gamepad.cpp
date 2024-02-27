@@ -26,8 +26,7 @@ uint64_t getMicro() {
 }
 
 Gamepad::Gamepad() :
-	debouncer()
-	, options(Storage::getInstance().getGamepadOptions())
+	options(Storage::getInstance().getGamepadOptions())
 	, hotkeyOptions(Storage::getInstance().getHotkeyOptions())
 {}
 
@@ -211,8 +210,7 @@ void Gamepad::process()
 
 void Gamepad::read()
 {
-	// Need to invert since we're using pullups
-	Mask_t values = ~gpio_get_all();
+	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
 	
 	// Get the midpoint value for the current mode
 	uint16_t joystickMid = GAMEPAD_JOYSTICK_MID;
@@ -253,11 +251,6 @@ void Gamepad::read()
 	state.ry = joystickMid;
 	state.lt = 0;
 	state.rt = 0;
-}
-
-void Gamepad::debounce() {
-	if (Storage::getInstance().getGamepadOptions().debounceDelay > 0)
-		debouncer.debounce(&state);
 }
 
 void Gamepad::save()

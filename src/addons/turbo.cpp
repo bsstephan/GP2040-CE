@@ -14,10 +14,10 @@
 bool TurboInput::available() {
     // Turbo Button initialized by void Gamepad::setup()
     bool hasTurboAssigned = false;
-    GpioAction* pinMappings = Storage::getInstance().getProfilePinMappings();
+    GpioMappingInfo* pinMappings = Storage::getInstance().getProfilePinMappings();
     for (Pin_t pin = 0; pin < (Pin_t)NUM_BANK0_GPIOS; pin++)
     {
-        if ( pinMappings[pin] == GpioAction::BUTTON_PRESS_TURBO ) {
+        if ( pinMappings[pin].action == GpioAction::BUTTON_PRESS_TURBO ) {
             hasTurboAssigned = true;
             turboPin = pin;
             break;
@@ -110,39 +110,6 @@ void TurboInput::read(const TurboOptions & options)
     bTurboState = !gpio_get(turboPin);
 }
 
-void TurboInput::debounce()
-{
-    uint16_t debounceDelay = Storage::getInstance().getGamepadOptions().debounceDelay;
-
-    // Return if the states haven't changed
-    if ((bDebState == bTurboState) && (debChargeState == chargeState))
-        return;
-
-    uint32_t uNowTime = getMillis();
-
-    // Debounce turbo button
-    if ((bDebState != bTurboState) && ((uNowTime - uDebTime) > debounceDelay)) {
-        bDebState ^= true;
-        uDebTime = uNowTime;
-        bTurboState = bDebState;
-    }
-
-    // Debounce charge states
-    if (debChargeState != chargeState) {
-        uint32_t changedCharge = debChargeState ^ chargeState;
-
-        for (uint8_t i = 0; i < 4; i++)
-        {
-            if ((changedCharge & shmupBtnMask[i]) && (uNowTime - debChargeTime[i]) > debounceDelay)
-            {
-                debChargeState ^= shmupBtnMask[i];
-                debChargeTime[i] = uNowTime;
-            }
-        }
-        chargeState = debChargeState;
-    }
-}
-
 void TurboInput::process()
 {
     Gamepad * gamepad = Storage::getInstance().GetGamepad();
@@ -152,7 +119,6 @@ void TurboInput::process()
 
     // Get Turbo Button States
     read(options);
-    debounce();
 
     // Set TURBO Enable Buttons
     if (bTurboState) {
