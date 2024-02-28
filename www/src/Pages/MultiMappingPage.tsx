@@ -14,17 +14,17 @@ import { AppContext } from '../Contexts/AppContext';
 import Section from '../Components/Section';
 
 import { BUTTON_MASKS, getButtonLabels } from '../Data/Buttons';
-import useMultiPinStore from '../Store/useMultiPinStore';
+import useMultiPinStore, { MaskPayload } from '../Store/useMultiPinStore';
 
 const FILTERED_BUTTON_MASKS = BUTTON_MASKS.filter(
 	({ label }) => label !== 'None',
 );
 
-type PinCell = [string, { buttonsMask: number }];
+type PinCell = [string, MaskPayload];
 type PinRow = [PinCell, PinCell];
 type PinList = [PinRow];
 
-export default function MultiPinMappingPage() {
+export default function MultiMappingPage() {
 	const { fetchPins, pins, savePins, setPinMask } = useMultiPinStore();
 	const { updateUsedPins } = useContext(AppContext);
 	const [saveMessage, setSaveMessage] = useState('');
@@ -70,9 +70,9 @@ export default function MultiPinMappingPage() {
 					isClearable
 					isSearchable
 					options={FILTERED_BUTTON_MASKS}
-					placeholder="Select options" // TODO translation
+					placeholder={t('MultiMapping:placeholder')} // TODO translation
 					value={FILTERED_BUTTON_MASKS.filter(
-						({ value }) => pinValue.buttonsMask & value,
+						({ value }) => pinValue.customButtonMask & value,
 					)}
 					isMulti
 					onChange={(selected) =>
@@ -92,7 +92,7 @@ export default function MultiPinMappingPage() {
 
 	return (
 		<>
-			<Section title={'Multi pin mapping'}>
+			<Section title={t('MultiMapping:header-text')}>
 				<Form onSubmit={handleSubmit}>
 					<div className="gx-3">
 						{pinList.map(([cell1, cell2], i) => (
