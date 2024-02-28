@@ -382,7 +382,7 @@ async function setPinMappingsV2(mappings) {
 
 async function getPinMappings() {
 	try {
-		const { data } = await axios.get(`${baseUrl}/api/getPinMappingsV2`);
+		const { data } = await axios.get(`${baseUrl}/api/getPinMappings`);
 		return data;
 	} catch (error) {
 		console.log(error);
