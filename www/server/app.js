@@ -255,7 +255,7 @@ app.get('/api/getCustomTheme', (req, res) => {
 app.get('/api/getPinMappingsV2', (req, res) => {
 	return res.send(
 		Object.entries(picoController).reduce(
-			(acc, [key]) => ({ ...acc, [key]: { customButtonMask: 0 } }),
+			(acc, [key]) => ({ ...acc, [key]: { action: 0, customButtonMask: 0 } }),
 			{},
 		),
 	);
