@@ -3,7 +3,11 @@ import { create } from 'zustand';
 import WebApi from '../Services/WebApi';
 import { BUTTON_ACTIONS } from '../Data/Pins';
 
-export type MaskPayload = { action: number; customButtonMask: number };
+export type MaskPayload = {
+	action: number;
+	customButtonMask: number;
+	customDpadMask: number;
+};
 type State = {
 	pins: { [key: string]: MaskPayload };
 	loadingPins: boolean;
@@ -14,7 +18,11 @@ type Actions = {
 	setPinMask: (pin: string, customButtonMask: number) => void;
 	savePins: () => Promise<object>;
 };
-const DEFAULT_MASKS_STATE = { action: 0, customButtonMask: 0 };
+const DEFAULT_MASKS_STATE = {
+	action: 0,
+	customButtonMask: 0,
+	customDpadMask: 0,
+};
 const INITIAL_STATE: State = {
 	pins: {
 		pin00: DEFAULT_MASKS_STATE,
@@ -70,6 +78,7 @@ const useMultiPinStore = create<State & Actions>()((set, get) => ({
 				[pin]: {
 					action: customButtonMask ? BUTTON_ACTIONS.CUSTOM_BUTTON_COMBO : 0,
 					customButtonMask,
+					customDpadMask: 0,
 				},
 			},
 		})),
