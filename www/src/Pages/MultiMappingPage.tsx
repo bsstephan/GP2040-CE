@@ -13,10 +13,10 @@ import zip from 'lodash/zip';
 import { AppContext } from '../Contexts/AppContext';
 import Section from '../Components/Section';
 
-import { BUTTON_MASKS, getButtonLabels } from '../Data/Buttons';
+import { BUTTON_MASKS_OPTIONS, getButtonLabels } from '../Data/Buttons';
 import useMultiPinStore, { MaskPayload } from '../Store/useMultiPinStore';
 
-const FILTERED_BUTTON_MASKS = BUTTON_MASKS.filter(
+const FILTERED_BUTTON_MASKS = BUTTON_MASKS_OPTIONS.filter(
 	({ label }) => label !== 'None',
 );
 

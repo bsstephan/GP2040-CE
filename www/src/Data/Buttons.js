@@ -215,7 +215,7 @@ export const DPAD_MASKS = [
 	{ label: 'right', value: 3 },
 ];
 
-export const BUTTON_MASKS = [
+export const BUTTON_MASKS_OPTIONS = [
 	{ label: 'None', value: 0 },
 	{ label: 'B1', value: 1 << 0 },
 	{ label: 'B2', value: 1 << 1 },
