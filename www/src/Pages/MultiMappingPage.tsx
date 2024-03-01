@@ -13,19 +13,19 @@ import zip from 'lodash/zip';
 import { AppContext } from '../Contexts/AppContext';
 import Section from '../Components/Section';
 
-import { BUTTON_MASKS_OPTIONS, getButtonLabels } from '../Data/Buttons';
+import { BUTTON_MASKS, DPAD_MASKS, getButtonLabels } from '../Data/Buttons';
 import useMultiPinStore, { MaskPayload } from '../Store/useMultiPinStore';
 
-const FILTERED_BUTTON_MASKS = BUTTON_MASKS_OPTIONS.filter(
-	({ label }) => label !== 'None',
-);
-
+const MASK_OPTIONS = [
+	...BUTTON_MASKS.map((mask) => ({ ...mask, type: 'customButtonMask' })),
+	...DPAD_MASKS.map((mask) => ({ ...mask, type: 'customDpadMask' })),
+];
 type PinCell = [string, MaskPayload];
 type PinRow = [PinCell, PinCell];
 type PinList = [PinRow];
 
 export default function MultiMappingPage() {
-	const { fetchPins, pins, savePins, setPinMask } = useMultiPinStore();
+	const { fetchPins, pins, savePins, setPinMasks } = useMultiPinStore();
 	const { updateUsedPins } = useContext(AppContext);
 	const [saveMessage, setSaveMessage] = useState('');
 
@@ -69,18 +69,31 @@ export default function MultiMappingPage() {
 					className="text-primary flex-grow-1"
 					isClearable
 					isSearchable
-					options={FILTERED_BUTTON_MASKS}
-					placeholder={t('MultiMapping:placeholder')} // TODO translation
-					value={FILTERED_BUTTON_MASKS.filter(
-						({ value }) => pinValue.customButtonMask & value,
+					options={MASK_OPTIONS}
+					placeholder={t('MultiMapping:placeholder')}
+					value={MASK_OPTIONS.filter(
+						({ value, type }) =>
+							(pinValue.customButtonMask & value &&
+								type === 'customButtonMask') ||
+							(pinValue.customDpadMask & value && type === 'customDpadMask'),
 					)}
+					getOptionValue={(option) => `${option.type}.${option.value}`}
 					isMulti
 					onChange={(selected) =>
-						setPinMask(
+						setPinMasks(
 							pin,
 							selected.reduce(
-								(mask, option) => (option?.value ? mask ^ option.value : mask),
-								0,
+								(masks, option) => ({
+									customButtonMask:
+										option.type === 'customButtonMask'
+											? masks.customButtonMask ^ option.value
+											: masks.customButtonMask,
+									customDpadMask:
+										option.type === 'customDpadMask'
+											? masks.customDpadMask ^ option.value
+											: masks.customDpadMask,
+								}),
+								{ customButtonMask: 0, customDpadMask: 0 },
 							),
 						)
 					}
