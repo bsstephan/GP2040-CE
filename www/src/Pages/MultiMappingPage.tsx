@@ -15,6 +15,7 @@ import Section from '../Components/Section';
 
 import { BUTTON_MASKS, DPAD_MASKS, getButtonLabels } from '../Data/Buttons';
 import useMultiPinStore, { MaskPayload } from '../Store/useMultiPinStore';
+import omit from 'lodash/omit';
 
 const MASK_OPTIONS = [
 	...BUTTON_MASKS.map((mask) => ({ ...mask, type: 'customButtonMask' })),
@@ -26,9 +27,12 @@ type PinList = [PinRow];
 
 export default function MultiMappingPage() {
 	const { fetchPins, pins, savePins, setPinMasks } = useMultiPinStore();
-	const { updateUsedPins } = useContext(AppContext);
+	const { buttonLabels, updateUsedPins } = useContext(AppContext);
 	const [saveMessage, setSaveMessage] = useState('');
 
+	const { buttonLabelType, swapTpShareLabels } = buttonLabels;
+	const CURRENT_BUTTONS = getButtonLabels(buttonLabelType, swapTpShareLabels);
+	const buttonNames = omit(CURRENT_BUTTONS, ['label', 'value']);
 	const { t } = useTranslation('');
 
 	useEffect(() => {
@@ -78,6 +82,7 @@ export default function MultiMappingPage() {
 							(pinValue.customDpadMask & value && type === 'customDpadMask'),
 					)}
 					getOptionValue={(option) => `${option.type}.${option.value}`}
+					getOptionLabel={(option) => buttonNames[option.label]}
 					isMulti
 					onChange={(selected) =>
 						setPinMasks(
@@ -100,7 +105,7 @@ export default function MultiMappingPage() {
 				/>
 			</div>
 		),
-		[],
+		[buttonNames],
 	);
 
 	return (
