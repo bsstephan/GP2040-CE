@@ -9,13 +9,14 @@ import Select from 'react-select';
 import { Alert, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import zip from 'lodash/zip';
+import omit from 'lodash/omit';
 
 import { AppContext } from '../Contexts/AppContext';
 import Section from '../Components/Section';
 
 import { BUTTON_MASKS, DPAD_MASKS, getButtonLabels } from '../Data/Buttons';
 import useMultiPinStore, { MaskPayload } from '../Store/useMultiPinStore';
-import omit from 'lodash/omit';
+import usePinStore from '../Store/usePinStore';
 
 const MASK_OPTIONS = [
 	...BUTTON_MASKS.map((mask) => ({ ...mask, type: 'customButtonMask' })),
@@ -26,7 +27,13 @@ type PinRow = [PinCell, PinCell];
 type PinList = [PinRow];
 
 export default function MultiMappingPage() {
-	const { fetchPins, pins, savePins, setPinMasks } = useMultiPinStore();
+	const {
+		fetchPins: fetchMultiPins,
+		pins,
+		savePins,
+		setPinMasks,
+	} = useMultiPinStore();
+	const { fetchPins } = usePinStore();
 	const { buttonLabels, updateUsedPins } = useContext(AppContext);
 	const [saveMessage, setSaveMessage] = useState('');
 
@@ -36,7 +43,7 @@ export default function MultiMappingPage() {
 	const { t } = useTranslation('');
 
 	useEffect(() => {
-		fetchPins();
+		fetchMultiPins();
 	}, []);
 
 	const handleSubmit = async (e) => {
@@ -45,6 +52,7 @@ export default function MultiMappingPage() {
 		try {
 			await savePins();
 			updateUsedPins();
+			fetchPins();
 			setSaveMessage(t('Common:saved-success-message'));
 		} catch (error) {
 			setSaveMessage(t('Common:saved-error-message'));

@@ -25,6 +25,7 @@ import {
 	PinActionValues,
 } from '../Data/Pins';
 import useProfilesStore from '../Store/useProfilesStore';
+import useMultiPinStore from '../Store/useMultiPinStore';
 
 type PinCell = [string, PinActionValues];
 type PinRow = [PinCell, PinCell];
@@ -149,6 +150,7 @@ const PinsForm = ({ savePins, pins, setPinAction }: PinsFormTypes) => {
 
 export default function PinMappingPage() {
 	const { fetchPins, pins, savePins, setPinAction } = usePinStore();
+	const { fetchPins: fetchMultiPins } = useMultiPinStore();
 	const { fetchProfiles, profiles, saveProfiles, setProfileAction } =
 		useProfilesStore();
 
@@ -164,7 +166,8 @@ export default function PinMappingPage() {
 	const saveAll = useCallback(() => {
 		savePins();
 		saveProfiles();
-	}, [savePins, saveProfiles]);
+		fetchMultiPins();
+	}, [savePins, saveProfiles, fetchMultiPins]);
 
 	return (
 		<>
