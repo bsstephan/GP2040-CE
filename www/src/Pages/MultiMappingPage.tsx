@@ -17,6 +17,17 @@ import Section from '../Components/Section';
 import { BUTTON_MASKS, DPAD_MASKS, getButtonLabels } from '../Data/Buttons';
 import useMultiPinStore, { MaskPayload } from '../Store/useMultiPinStore';
 import usePinStore from '../Store/usePinStore';
+import {
+	NON_SELECTABLE_BUTTON_ACTIONS,
+	BUTTON_ACTIONS,
+	PinActionValues,
+} from '../Data/Pins';
+import invert from 'lodash/invert';
+
+const isNonSelectable = (value: PinActionValues) =>
+	NON_SELECTABLE_BUTTON_ACTIONS.filter(
+		(action) => action !== BUTTON_ACTIONS.CUSTOM_BUTTON_COMBO,
+	).includes(value);
 
 const MASK_OPTIONS = [
 	...BUTTON_MASKS.map((mask) => ({ ...mask, type: 'customButtonMask' })),
@@ -82,7 +93,16 @@ export default function MultiMappingPage() {
 					isClearable
 					isSearchable
 					options={MASK_OPTIONS}
-					placeholder={t('MultiMapping:placeholder')}
+					placeholder={
+						isNonSelectable(pinValue.action)
+							? t(
+									`MultiMapping:actions.${
+										invert(BUTTON_ACTIONS)[pinValue.action]
+									}`,
+							  )
+							: t('MultiMapping:placeholder')
+					}
+					isDisabled={isNonSelectable(pinValue.action)}
 					value={MASK_OPTIONS.filter(
 						({ value, type }) =>
 							(pinValue.customButtonMask & value &&

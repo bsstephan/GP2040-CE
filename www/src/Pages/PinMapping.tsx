@@ -31,7 +31,7 @@ type PinCell = [string, PinActionValues];
 type PinRow = [PinCell, PinCell];
 type PinList = [PinRow];
 
-const isNonSelectable = (value) =>
+const isNonSelectable = (value: PinActionValues) =>
 	NON_SELECTABLE_BUTTON_ACTIONS.includes(value);
 
 const options = Object.entries(BUTTON_ACTIONS)
