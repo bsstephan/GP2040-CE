@@ -554,7 +554,7 @@ std::string setProfileOptions()
 
 	ProfileOptions& profileOptions = Storage::getInstance().getProfileOptions();
 	JsonObject options = doc.as<JsonObject>();
-	JsonArray alts = options["alternativePinMappings"];
+	JsonArray alts = options["gpioMappingsSets"];
 	int altsIndex = 0;
 	char pinName[6];
 	for (JsonObject alt : alts) {
@@ -563,8 +563,8 @@ std::string setProfileOptions()
 			// setting a pin shouldn't change a new existing addon/reserved pin
 			if (profileOptions.gpioMappingsSets[altsIndex].pins[pin].action != GpioAction::ASSIGNED_TO_ADDON &&
 					profileOptions.gpioMappingsSets[altsIndex].pins[pin].action != GpioAction::RESERVED &&
-					(GpioAction)alt[pinName] != GpioAction::RESERVED &&
-					(GpioAction)alt[pinName] != GpioAction::ASSIGNED_TO_ADDON) {
+					(GpioAction)alt["pins"][pinName] != GpioAction::RESERVED &&
+					(GpioAction)alt["pins"][pinName] != GpioAction::ASSIGNED_TO_ADDON) {
 				profileOptions.gpioMappingsSets[altsIndex].pins[pin].action = (GpioAction)alt[pinName];
 			}
 		}
@@ -581,9 +581,10 @@ std::string getProfileOptions()
 	DynamicJsonDocument doc(LWIP_HTTPD_POST_MAX_PAYLOAD_LEN);
 
 	ProfileOptions& profileOptions = Storage::getInstance().getProfileOptions();
-	JsonArray alts = doc.createNestedArray("alternativePinMappings");
+	JsonArray alts = doc.createNestedArray("gpioMappingsSets");
 	for (int i = 0; i < profileOptions.gpioMappingsSets_count; i++) {
-		JsonObject altMappings = alts.createNestedObject();
+		JsonObject profile = alts.createNestedObject();
+		JsonObject altMappings = profile.createNestedObject("pins");
 		// this looks duplicative, but something in arduinojson treats the doc
 		// field string by reference so you can't be "clever" and do an snprintf
 		// thing or else you only send the last field in the JSON

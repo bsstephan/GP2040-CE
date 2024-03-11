@@ -28,52 +28,7 @@ export const baseButtonMappings = {
 	Fn: { pin: -1, key: 0, error: null },
 };
 
-export const baseProfileOptions = {
-	alternativePinMappings: [
-		{
-			Up: { pin: -1, key: 0, error: null },
-			Down: { pin: -1, key: 0, error: null },
-			Left: { pin: -1, key: 0, error: null },
-			Right: { pin: -1, key: 0, error: null },
-			B1: { pin: -1, key: 0, error: null },
-			B2: { pin: -1, key: 0, error: null },
-			B3: { pin: -1, key: 0, error: null },
-			B4: { pin: -1, key: 0, error: null },
-			L1: { pin: -1, key: 0, error: null },
-			R1: { pin: -1, key: 0, error: null },
-			L2: { pin: -1, key: 0, error: null },
-			R2: { pin: -1, key: 0, error: null },
-		},
-		{
-			Up: { pin: -1, key: 0, error: null },
-			Down: { pin: -1, key: 0, error: null },
-			Left: { pin: -1, key: 0, error: null },
-			Right: { pin: -1, key: 0, error: null },
-			B1: { pin: -1, key: 0, error: null },
-			B2: { pin: -1, key: 0, error: null },
-			B3: { pin: -1, key: 0, error: null },
-			B4: { pin: -1, key: 0, error: null },
-			L1: { pin: -1, key: 0, error: null },
-			R1: { pin: -1, key: 0, error: null },
-			L2: { pin: -1, key: 0, error: null },
-			R2: { pin: -1, key: 0, error: null },
-		},
-		{
-			Up: { pin: -1, key: 0, error: null },
-			Down: { pin: -1, key: 0, error: null },
-			Left: { pin: -1, key: 0, error: null },
-			Right: { pin: -1, key: 0, error: null },
-			B1: { pin: -1, key: 0, error: null },
-			B2: { pin: -1, key: 0, error: null },
-			B3: { pin: -1, key: 0, error: null },
-			B4: { pin: -1, key: 0, error: null },
-			L1: { pin: -1, key: 0, error: null },
-			R1: { pin: -1, key: 0, error: null },
-			L2: { pin: -1, key: 0, error: null },
-			R2: { pin: -1, key: 0, error: null },
-		},
-	],
-};
+export const baseProfileOptions = {};
 
 export const basePeripheralMapping = {
 	peripheral: {
@@ -384,7 +339,7 @@ async function setPinMappings(mappings) {
 async function getProfileOptions() {
 	try {
 		const { data } = await axios.get(`${baseUrl}/api/getProfileOptions`);
-		return data?.alternativePinMappings;
+		return data?.gpioMappingsSets;
 	} catch (error) {
 		console.log(error);
 	}
@@ -392,7 +347,7 @@ async function getProfileOptions() {
 
 async function setProfileOptions(mappings) {
 	return axios.post(`${baseUrl}/api/setProfileOptions`, {
-		alternativePinMappings: mappings,
+		gpioMappingsSets: mappings,
 	});
 }
 

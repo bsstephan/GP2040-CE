@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/getUsedPins', (req, res) => {
-	return res.send({ usedPins: Object.values(picoController) });
+	return res.send({ usedPins: Object.values(picoController['pins']) });
 });
 
 app.get('/api/resetSettings', (req, res) => {
@@ -212,7 +212,7 @@ app.get('/api/getLedOptions', (req, res) => {
 			A1: null,
 			A2: null,
 		},
-		usedPins: Object.values(picoController),
+		usedPins: Object.values(picoController['pins']),
 		pledType: 1,
 		pledPin1: 12,
 		pledPin2: 13,
@@ -253,7 +253,7 @@ app.get('/api/getCustomTheme', (req, res) => {
 });
 
 app.get('/api/getPinMappings', (req, res) => {
-	return res.send(picoController);
+	return res.send(picoController['pins']);
 });
 
 app.get('/api/getKeyMappings', (req, res) =>
@@ -373,7 +373,7 @@ app.get('/api/getWiiControls', (req, res) =>
 
 app.get('/api/getProfileOptions', (req, res) => {
 	return res.send({
-		alternativePinMappings: [picoController, picoController, picoController],
+		gpioMappingsSets: [picoController, picoController, picoController],
 	});
 });
 
@@ -482,7 +482,7 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		analog1256DrdyPin: -1,
 		analog1256AnalogMax: 3.3,
 		analog1256EnableTriggers: false,
-		usedPins: Object.values(picoController),
+		usedPins: Object.values(picoController['pins']),
 	});
 });
 
