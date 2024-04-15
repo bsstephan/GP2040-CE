@@ -730,10 +730,10 @@ message MacroOptions
 
 message InputHistoryOptions
 {
-    optional bool enabled = 1;
-    optional uint32 length = 2;
-    optional uint32 col = 3;
-    optional uint32 row = 4;
+    optional bool enabled = 1 [default = false];
+    optional uint32 length = 2 [default = 21];
+    optional uint32 col = 3 [default = 0];
+    optional uint32 row = 4 [default = 7];
 }
 
 message RotaryPinOptions
