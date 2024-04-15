@@ -524,30 +524,30 @@ message DualDirectionalOptions
 
 message TiltOptions
 {
-    optional bool enabled = 1;
+    optional bool enabled = 1 [default = false];
 
-    optional int32 tilt1Pin = 2 [deprecated = true];
-    optional int32 tilt2Pin = 3 [deprecated = true];
-    optional int32 tiltFunctionPin = 4 [deprecated = true];
-    optional int32 tiltLeftAnalogUpPin = 5 [deprecated = true];
-    optional int32 tiltLeftAnalogDownPin = 6 [deprecated = true];
-    optional int32 tiltLeftAnalogLeftPin = 7 [deprecated = true];
-    optional int32 tiltLeftAnalogRightPin = 8 [deprecated = true];
-    optional int32 tiltRightAnalogUpPin = 9 [deprecated = true];
-    optional int32 tiltRightAnalogDownPin = 10 [deprecated = true];
-    optional int32 tiltRightAnalogLeftPin = 11 [deprecated = true];
-    optional int32 tiltRightAnalogRightPin = 12 [deprecated = true];
+    optional int32 tilt1Pin = 2 [deprecated = true, default = -1];
+    optional int32 tilt2Pin = 3 [deprecated = true, default = -1];
+    optional int32 deprecatedTiltFunctionPin = 4 [deprecated = true];
+    optional int32 tiltLeftAnalogUpPin = 5 [deprecated = true, default = -1];
+    optional int32 tiltLeftAnalogDownPin = 6 [deprecated = true, default = -1];
+    optional int32 tiltLeftAnalogLeftPin = 7 [deprecated = true, default = -1];
+    optional int32 tiltLeftAnalogRightPin = 8 [deprecated = true, default = -1];
+    optional int32 tiltRightAnalogUpPin = 9 [deprecated = true, default = -1];
+    optional int32 tiltRightAnalogDownPin = 10 [deprecated = true, default = -1];
+    optional int32 tiltRightAnalogLeftPin = 11 [deprecated = true, default = -1];
+    optional int32 tiltRightAnalogRightPin = 12 [deprecated = true, default = -1];
 
-    optional SOCDMode tiltSOCDMode = 13;
+    optional SOCDMode tiltSOCDMode = 13 [default = SOCD_MODE_NEUTRAL];
 
-    optional int32 factorTilt1LeftX =  14;
-    optional int32 factorTilt1LeftY =  15;
-    optional int32 factorTilt1RightX =  16;
-    optional int32 factorTilt1RightY =  17;
-    optional int32 factorTilt2LeftX =  18;
-    optional int32 factorTilt2LeftY =  19;
-    optional int32 factorTilt2RightX =  20;
-    optional int32 factorTilt2RightY =  21;
+    optional int32 factorTilt1LeftX =  14 [default = 35];
+    optional int32 factorTilt1LeftY =  15 [default = 35];
+    optional int32 factorTilt1RightX =  16 [default = 35];
+    optional int32 factorTilt1RightY =  17 [default = 35];
+    optional int32 factorTilt2LeftX =  18 [default = 65];
+    optional int32 factorTilt2LeftY =  19 [default = 65];
+    optional int32 factorTilt2RightX =  20 [default = 65];
+    optional int32 factorTilt2RightY =  21 [default = 65];
 }
 
 message BuzzerOptions

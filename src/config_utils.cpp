@@ -645,28 +645,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.addonOptions.dualDirectionalOptions, combineMode, DualDirectionalCombinationMode::MIXED_MODE);
     INIT_UNSET_PROPERTY(config.addonOptions.dualDirectionalOptions, fourWayMode, false);
 
-	// addonOptions.tiltOptions
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, enabled, !!TILT_ENABLED);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tilt1Pin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt1LeftX, TILT1_FACTOR_LEFT_X);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt1LeftY, TILT1_FACTOR_LEFT_Y);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt1RightX, TILT1_FACTOR_RIGHT_X);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt1RightY, TILT1_FACTOR_RIGHT_Y);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tilt2Pin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt2LeftX, TILT2_FACTOR_LEFT_X);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt2LeftY, TILT2_FACTOR_LEFT_Y);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt2RightX, TILT2_FACTOR_RIGHT_X);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt2RightY, TILT2_FACTOR_RIGHT_Y);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltLeftAnalogDownPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltLeftAnalogUpPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltLeftAnalogLeftPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltLeftAnalogRightPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltRightAnalogDownPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltRightAnalogUpPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltRightAnalogLeftPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltRightAnalogRightPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltSOCDMode, TILT_SOCD_MODE);
-
     // addonOptions.buzzerOptions
     INIT_UNSET_PROPERTY(config.addonOptions.buzzerOptions, enabled, !!BUZZER_ENABLED);
     INIT_UNSET_PROPERTY(config.addonOptions.buzzerOptions, pin, BUZZER_PIN);
@@ -1230,29 +1208,6 @@ void gpioMappingsMigrationCore(Config& config)
 
     if (reverseOptions.enabled) {
         fromProtoBuf(reverseOptions.has_buttonPin, &reverseOptions.buttonPin, GpioAction::BUTTON_PRESS_INPUT_REVERSE);
-    }
-
-    // verify that tilt factors are not set to -1
-    if (tiltOptions.enabled) {
-        if (tiltOptions.factorTilt1LeftX == -1) tiltOptions.factorTilt1LeftX = TILT1_FACTOR_LEFT_X;
-        if (tiltOptions.factorTilt1LeftY == -1) tiltOptions.factorTilt1LeftY = TILT1_FACTOR_LEFT_Y;
-        if (tiltOptions.factorTilt1RightX == -1) tiltOptions.factorTilt1RightX = TILT1_FACTOR_RIGHT_X;
-        if (tiltOptions.factorTilt1RightY == -1) tiltOptions.factorTilt1RightY = TILT1_FACTOR_RIGHT_Y;
-        if (tiltOptions.factorTilt2LeftX == -1) tiltOptions.factorTilt2LeftX = TILT2_FACTOR_LEFT_X;
-        if (tiltOptions.factorTilt2LeftY == -1) tiltOptions.factorTilt2LeftY = TILT2_FACTOR_LEFT_Y;
-        if (tiltOptions.factorTilt2RightX == -1) tiltOptions.factorTilt2RightX = TILT2_FACTOR_RIGHT_X;
-        if (tiltOptions.factorTilt2RightY == -1) tiltOptions.factorTilt2RightY = TILT2_FACTOR_RIGHT_Y;
-
-        fromProtoBuf(tiltOptions.has_tilt1Pin, &tiltOptions.tilt1Pin, GpioAction::ANALOG_DIRECTION_MOD_LOW);
-        fromProtoBuf(tiltOptions.has_tilt2Pin, &tiltOptions.tilt2Pin, GpioAction::ANALOG_DIRECTION_MOD_HIGH);
-        fromProtoBuf(tiltOptions.has_tiltLeftAnalogUpPin, &tiltOptions.tiltLeftAnalogUpPin, GpioAction::ANALOG_DIRECTION_LS_Y_NEG);
-        fromProtoBuf(tiltOptions.has_tiltLeftAnalogDownPin, &tiltOptions.tiltLeftAnalogDownPin, GpioAction::ANALOG_DIRECTION_LS_Y_POS);
-        fromProtoBuf(tiltOptions.has_tiltLeftAnalogLeftPin, &tiltOptions.tiltLeftAnalogLeftPin, GpioAction::ANALOG_DIRECTION_LS_X_NEG);
-        fromProtoBuf(tiltOptions.has_tiltLeftAnalogRightPin, &tiltOptions.tiltLeftAnalogRightPin, GpioAction::ANALOG_DIRECTION_LS_X_POS);
-        fromProtoBuf(tiltOptions.has_tiltRightAnalogUpPin, &tiltOptions.tiltRightAnalogUpPin, GpioAction::ANALOG_DIRECTION_RS_Y_NEG);
-        fromProtoBuf(tiltOptions.has_tiltRightAnalogDownPin, &tiltOptions.tiltRightAnalogDownPin, GpioAction::ANALOG_DIRECTION_RS_Y_POS);
-        fromProtoBuf(tiltOptions.has_tiltRightAnalogLeftPin, &tiltOptions.tiltRightAnalogLeftPin, GpioAction::ANALOG_DIRECTION_RS_X_NEG);
-        fromProtoBuf(tiltOptions.has_tiltRightAnalogRightPin, &tiltOptions.tiltRightAnalogRightPin, GpioAction::ANALOG_DIRECTION_RS_X_POS);
     }
 
     // Assign all potential board config pins
