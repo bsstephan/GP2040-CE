@@ -383,8 +383,8 @@ message AnimationOptions
 
 message BootselButtonOptions
 {
-    optional bool enabled = 1;
-    optional uint32 buttonMap = 2;
+    optional bool enabled = 1 [default = false];
+    optional uint32 buttonMap = 2 [default = 0];
 }
 
 message OnBoardLedOptions
