@@ -7,14 +7,6 @@
 
 #include "BoardConfig.h"
 
-#ifndef PLAYERNUM_ADDON_ENABLED
-#define PLAYERNUM_ADDON_ENABLED 0
-#endif
-
-#ifndef PLAYER_NUMBER
-#define PLAYER_NUMBER 1
-#endif
-
 // Analog Module Name
 #define PlayerNumName "PlayerNum"
 
