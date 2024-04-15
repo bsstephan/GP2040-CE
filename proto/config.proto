@@ -518,8 +518,8 @@ message ExtraButtonOptions
 
 message PlayerNumberOptions
 {
-    optional bool enabled = 1;
-    optional uint32 number = 2;
+    optional bool enabled = 1 [default = false];
+    optional uint32 number = 2 [default = 1];
 }
 
 message PS4Options
