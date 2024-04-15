@@ -683,10 +683,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
         }
     }
 
-    // addonOptions.bootselButtonOptions
-    INIT_UNSET_PROPERTY(config.addonOptions.bootselButtonOptions, enabled, !!BOOTSEL_BUTTON_ENABLED);
-    INIT_UNSET_PROPERTY(config.addonOptions.bootselButtonOptions, buttonMap, BOOTSEL_BUTTON_MASK);
-
     // addonOptions.onBoardLedOptions
     INIT_UNSET_PROPERTY(config.addonOptions.onBoardLedOptions, enabled, !!BOARD_LED_ENABLED);
     INIT_UNSET_PROPERTY(config.addonOptions.onBoardLedOptions, mode, BOARD_LED_TYPE);
