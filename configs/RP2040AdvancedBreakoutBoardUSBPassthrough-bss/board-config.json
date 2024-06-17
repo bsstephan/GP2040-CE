@@ -1,0 +1,1034 @@
+{
+  "boardVersion": "v0.7.11-76-g74d08fc",
+  "gamepadOptions": {
+    "inputMode": "INPUT_MODE_GENERIC",
+    "dpadMode": "DPAD_MODE_DIGITAL",
+    "socdMode": "SOCD_MODE_SECOND_INPUT_PRIORITY",
+    "profileNumber": 1,
+    "ps4ControllerType": "PS4_CONTROLLER",
+    "debounceDelay": 5,
+    "inputModeB1": 1,
+    "inputModeB2": 0,
+    "inputModeB3": 14,
+    "inputModeB4": 4,
+    "inputModeL1": 13,
+    "inputModeL2": -1,
+    "inputModeR1": 2,
+    "inputModeR2": -1,
+    "ps4ReportHack": false,
+    "ps4AuthType": "INPUT_MODE_AUTH_TYPE_NONE",
+    "ps5AuthType": "INPUT_MODE_AUTH_TYPE_USB",
+    "xinputAuthType": "INPUT_MODE_AUTH_TYPE_NONE",
+    "ps4ControllerIDMode": "PS4_ID_CONSOLE"
+  },
+  "hotkeyOptions": {
+    "hotkey01": {
+      "dpadMask": 0,
+      "action": "HOTKEY_REBOOT_DEFAULT",
+      "buttonsMask": 15360,
+      "auxMask": 32768
+    },
+    "hotkey02": {
+      "dpadMask": 1,
+      "action": "HOTKEY_LOAD_PROFILE_1",
+      "buttonsMask": 3072,
+      "auxMask": 32768
+    },
+    "hotkey03": {
+      "dpadMask": 2,
+      "action": "HOTKEY_LOAD_PROFILE_2",
+      "buttonsMask": 3072,
+      "auxMask": 32768
+    },
+    "hotkey04": {
+      "dpadMask": 4,
+      "action": "HOTKEY_LOAD_PROFILE_3",
+      "buttonsMask": 3072,
+      "auxMask": 32768
+    },
+    "hotkey05": {
+      "dpadMask": 8,
+      "action": "HOTKEY_LOAD_PROFILE_4",
+      "buttonsMask": 3072,
+      "auxMask": 32768
+    },
+    "hotkey06": {
+      "dpadMask": 4,
+      "action": "HOTKEY_SOCD_LAST_INPUT",
+      "buttonsMask": 2048,
+      "auxMask": 32768
+    },
+    "hotkey07": {
+      "dpadMask": 2,
+      "action": "HOTKEY_SOCD_NEUTRAL",
+      "buttonsMask": 2048,
+      "auxMask": 32768
+    },
+    "hotkey08": {
+      "dpadMask": 8,
+      "action": "HOTKEY_SOCD_FIRST_INPUT",
+      "buttonsMask": 2048,
+      "auxMask": 32768
+    },
+    "hotkey09": {
+      "dpadMask": 1,
+      "action": "HOTKEY_SOCD_UP_PRIORITY",
+      "buttonsMask": 2048,
+      "auxMask": 32768
+    },
+    "hotkey10": {
+      "dpadMask": 4,
+      "action": "HOTKEY_DPAD_LEFT_ANALOG",
+      "buttonsMask": 1024,
+      "auxMask": 32768
+    },
+    "hotkey11": {
+      "dpadMask": 2,
+      "action": "HOTKEY_DPAD_DIGITAL",
+      "buttonsMask": 1024,
+      "auxMask": 32768
+    },
+    "hotkey12": {
+      "dpadMask": 8,
+      "action": "HOTKEY_DPAD_RIGHT_ANALOG",
+      "buttonsMask": 1024,
+      "auxMask": 32768
+    },
+    "hotkey13": {
+      "dpadMask": 1,
+      "action": "HOTKEY_TOGGLE_DDI_4_WAY_MODE",
+      "buttonsMask": 9216,
+      "auxMask": 32768
+    },
+    "hotkey14": {
+      "dpadMask": 1,
+      "action": "HOTKEY_TOGGLE_4_WAY_MODE",
+      "buttonsMask": 1024,
+      "auxMask": 32768
+    },
+    "hotkey15": {
+      "dpadMask": 0,
+      "action": "HOTKEY_NONE",
+      "buttonsMask": 0,
+      "auxMask": 0
+    },
+    "hotkey16": {
+      "dpadMask": 0,
+      "action": "HOTKEY_NONE",
+      "buttonsMask": 0,
+      "auxMask": 0
+    }
+  },
+  "displayOptions": {
+    "enabled": true,
+    "deprecatedI2cBlock": 0,
+    "deprecatedI2cSDAPin": -1,
+    "deprecatedI2cSCLPin": -1,
+    "deprecatedI2cAddress": 60,
+    "deprecatedI2cSpeed": 800000,
+    "buttonLayout": "BUTTON_LAYOUT_BOARD_DEFINED_A",
+    "buttonLayoutRight": "BUTTON_LAYOUT_BOARD_DEFINED_B",
+    "buttonLayoutCustomOptions": {
+      "paramsLeft": {
+        "layout": "BUTTON_LAYOUT_STICK",
+        "common": {
+          "startX": 8,
+          "startY": 28,
+          "buttonRadius": 8,
+          "buttonPadding": 2
+        }
+      },
+      "paramsRight": {
+        "layout": "BUTTON_LAYOUT_VEWLIX",
+        "common": {
+          "startX": 8,
+          "startY": 28,
+          "buttonRadius": 8,
+          "buttonPadding": 2
+        }
+      }
+    },
+    "splashMode": "SPLASH_MODE_STATIC",
+    "splashChoice": "SPLASH_CHOICE_CUSTOM",
+    "splashDuration": 3000,
+    "splashImage": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/wAAAAAAAAAAAAAAAAAAD/8AAAAAAAAAAAAAAAAAAA//AAAAAAAAAAAAAAAAAAAP/wAAAAAAAAAAAAAAAAAADwAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAAAAAADwAAAAAAAAAAAAAAAAAAAA8P//AAAAAAAAAAAAAAAAAPD//wAAAAAAAAAAAAAAAADw//8AAAAAAAAAAAAAAAAA8P//AAAAAAAAAAAAAAAAAADwAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAAAAAADwAAAAAAAAAAAAAAAAAAAA8P/////wAAAAAAAAAAAAAPD/////8AAAAAAAAAAAAADw//////AAAAAAAAAAAAAA8P/////wAAAAAAAAAAAAAPD/////8AAAAAAAAAAAAADw//////AAAAAAAAAAAAAA8P/////wAAAAAAAAAAAAAPD/////8AAAAAAAAAAAAAAA/wAAD/AAAAAAAAAAAAAAAP8AAA/wAAAAAAAAAAAAAAD/AAAP8AAAAAAAAAAAAAAA/wAAD/AAAAAAAAAAAAAAAP8AAA/wAAAAAAAAAAAAAAD/AAAP8AAAAAAAAAAAAAAA/wAAD/AAAAAAAAAAAAAAAP8AAA/wAAAAAAAAAAAAAAD/AAAP8AAAAAAAAAAAAAAA/wAAD/AAAAAAAAAAAAAAAP8AAA/wAAAAAAAAAAAAAAD/AAAP8AAAAAAAAAAAAAAA/wAAD/AAAAAAAAAAAAAAAP8AAA/wAAAAAAAAAAAAAAD/AAAP8AAAAAAAAAAAAAAA/wAAD/AAAAAAAAAAAAAAAP8AAA/wAAAAAAAAAAAAAAD/AAAP8AAAAAAAAAAAAAAA/wAAD/AAAAAAAAAAAAAAAP8AAA/wAAAAAAAAAAAAAAD/////8AAAAAAAAAAAAAAA//////AAAAAAAAAAAAAAAP/////wAAAAAAAAAAAAAAD/////8AAAAAAAAAAAAAAA//////AAAAAAAAAAAAAAAP/////wAAAAAAAAAAAAAAD/////8AAAAAAAAAAAAAAA//////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "size": 3,
+    "flip": 0,
+    "invert": false,
+    "displaySaverTimeout": 300000,
+    "turnOffWhenSuspended": false,
+    "displaySaverMode": "DISPLAY_SAVER_TOAST",
+    "buttonLayoutOrientation": "BUTTON_ORIENTATION_DEFAULT",
+    "inputMode": true,
+    "turboMode": false,
+    "dpadMode": true,
+    "socdMode": true,
+    "macroMode": false,
+    "profileMode": true,
+    "inputHistoryEnabled": true,
+    "inputHistoryLength": 21,
+    "inputHistoryCol": 0,
+    "inputHistoryRow": 7
+  },
+  "addonOptions": {
+    "dualDirectionalOptions": {
+      "enabled": true,
+      "deprecatedUpPin": -1,
+      "deprecatedDownPin": -1,
+      "deprecatedLeftPin": -1,
+      "deprecatedRightPin": -1,
+      "dpadMode": "DPAD_MODE_DIGITAL",
+      "combineMode": "NONE_MODE",
+      "fourWayMode": false
+    },
+    "macroOptions": {
+      "enabled": true,
+      "deprecatedPin": -1,
+      "macroList": [
+        {
+          "macroType": "ON_TOGGLE",
+          "macroLabel": "Mash",
+          "macroInputs": [
+            {
+              "buttonMask": 1,
+              "duration": 33332,
+              "waitDuration": 33332
+            }
+          ],
+          "enabled": true,
+          "useMacroTriggerButton": false,
+          "deprecatedMacroTriggerPin": -1,
+          "macroTriggerButton": 0,
+          "exclusive": true,
+          "interruptible": true,
+          "showFrames": true
+        },
+        {
+          "macroType": "ON_PRESS",
+          "macroLabel": "",
+          "enabled": false,
+          "useMacroTriggerButton": false,
+          "deprecatedMacroTriggerPin": -1,
+          "macroTriggerButton": 0,
+          "exclusive": true,
+          "interruptible": true,
+          "showFrames": true
+        },
+        {
+          "macroType": "ON_PRESS",
+          "macroLabel": "",
+          "enabled": false,
+          "useMacroTriggerButton": false,
+          "deprecatedMacroTriggerPin": -1,
+          "macroTriggerButton": 0,
+          "exclusive": true,
+          "interruptible": true,
+          "showFrames": true
+        },
+        {
+          "macroType": "ON_PRESS",
+          "macroLabel": "",
+          "enabled": false,
+          "useMacroTriggerButton": false,
+          "deprecatedMacroTriggerPin": -1,
+          "macroTriggerButton": 0,
+          "exclusive": true,
+          "interruptible": true,
+          "showFrames": true
+        },
+        {
+          "macroType": "ON_PRESS",
+          "macroLabel": "",
+          "enabled": false,
+          "useMacroTriggerButton": false,
+          "deprecatedMacroTriggerPin": -1,
+          "macroTriggerButton": 0,
+          "exclusive": true,
+          "interruptible": true,
+          "showFrames": true
+        },
+        {
+          "macroType": "ON_PRESS",
+          "macroLabel": "",
+          "enabled": false,
+          "useMacroTriggerButton": false,
+          "deprecatedMacroTriggerPin": -1,
+          "macroTriggerButton": 0,
+          "exclusive": true,
+          "interruptible": true,
+          "showFrames": true
+        }
+      ],
+      "macroBoardLedEnabled": false
+    }
+  },
+  "profileOptions": {
+    "gpioMappingsSets": [
+      {
+        "pins": [
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_R2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_L2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_R1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B4",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_L1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_A1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_RIGHT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_LEFT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_UP",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DOWN",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_L3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_R3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_A2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_FN",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_UP",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_DOWN",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_LEFT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_RIGHT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          }
+        ],
+        "profileLabel": "SNES",
+        "enabled": true
+      },
+      {
+        "pins": [
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_UP",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_UP",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_R2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_R1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_L2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_L1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B4",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_A1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_RIGHT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_LEFT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_UP",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DOWN",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_L3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_R3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_A2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_FN",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_UP",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_DOWN",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_LEFT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_RIGHT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          }
+        ],
+        "profileLabel": "SNSFG",
+        "enabled": true
+      },
+      {
+        "pins": [
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_A3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "SUSTAIN_DP_MODE_RS",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_R2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_L2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_R1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_L1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B4",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_B3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_A1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_S1",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_RIGHT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_LEFT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_UP",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DOWN",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_L3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_R3",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_A2",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "ASSIGNED_TO_ADDON",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_FN",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_UP",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_DOWN",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_LEFT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          },
+          {
+            "action": "BUTTON_PRESS_DDI_RIGHT",
+            "direction": "GPIO_DIRECTION_INPUT",
+            "customDpadMask": 0,
+            "customButtonMask": 0
+          }
+        ],
+        "profileLabel": "AcAdv",
+        "enabled": true
+      }
+    ]
+  },
+  "boardConfig": "RP2040AdvancedBreakoutBoardUSBPassthrough-bss",
+  "gpioMappings": {
+    "pins": [
+      {
+        "action": "ASSIGNED_TO_ADDON",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "ASSIGNED_TO_ADDON",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_S2",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_DDI_UP",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_DDI_UP",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_R2",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_L2",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_B2",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_B1",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_R1",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_L1",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_B4",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_B3",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_S2",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_A1",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_S1",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_RIGHT",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_LEFT",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_UP",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_DOWN",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_L3",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_R3",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_A2",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "ASSIGNED_TO_ADDON",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "ASSIGNED_TO_ADDON",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_FN",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_DDI_UP",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_DDI_DOWN",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_DDI_LEFT",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      },
+      {
+        "action": "BUTTON_PRESS_DDI_RIGHT",
+        "direction": "GPIO_DIRECTION_INPUT",
+        "customDpadMask": 0,
+        "customButtonMask": 0
+      }
+    ],
+    "profileLabel": "GenFG",
+    "enabled": true
+  },
+  "migrations": {
+    "hotkeysMigrated": true,
+    "gpioMappingsMigrated": true,
+    "buttonProfilesMigrated": true,
+    "profileEnabledFlagsMigrated": true
+  },
+  "peripheralOptions": {
+    "blockI2C0": {
+      "enabled": true,
+      "sda": 0,
+      "scl": 1,
+      "speed": 400000
+    },
+    "blockUSB0": {
+      "enabled": true,
+      "dp": 23,
+      "enable5v": -1,
+      "order": 0
+    }
+  }
+}
