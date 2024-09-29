@@ -598,3 +598,11 @@ enum GPEventType
     GP_EVENT_SYSTEM_REBOOT = 13;
     GP_EVENT_MENU_NAVIGATE = 14;
 };
+
+enum AnalogEmulationInactiveMode
+{
+    option (nanopb_enumopt).long_names = false;
+
+    RETURN_TO_NEUTRAL = 0;
+    STAY_ON_OLD_VALUE = 1;
+}
