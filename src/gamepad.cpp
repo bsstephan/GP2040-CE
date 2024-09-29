@@ -168,6 +168,14 @@ void Gamepad::setup()
 		}
 	}
 
+	// if pins are mapped to LS/RS X/Y -/+, when they are not active, we should send the analog
+	// back to neutral. also, dpad joystick modes should only return LS/RS to neutral if nothing else
+	// is managing LS/RS, these mappings included
+	if (mapAnalogLSXNeg->pinMask || mapAnalogLSXPos->pinMask || mapAnalogLSYNeg->pinMask || mapAnalogLSYPos->pinMask)
+		hasStandaloneLeftAnalogMappings = true;
+	if (mapAnalogRSXNeg->pinMask || mapAnalogRSXPos->pinMask || mapAnalogRSYNeg->pinMask || mapAnalogRSYPos->pinMask)
+		hasStandaloneRightAnalogMappings = true;
+
 	// Define our hotkey array
 	hotkeys[0] = hotkeyOptions.hotkey01;
 	hotkeys[1] = hotkeyOptions.hotkey02;
@@ -295,35 +303,60 @@ void Gamepad::process()
 	// clean up after yourself. nobody likes bad inputs.
 	state.dpad = runSOCDCleaner(resolveSOCDMode(options), state.dpad);
 
-	// since analog modes only care about the dpad mode inputs, set the dpad state to digital only dpad values
+	// since analog emulation modes only care about the dpad mode inputs, set the dpad state to digital only dpad values
 	switch (activeDpadMode)
 	{
 		case DpadMode::DPAD_MODE_LEFT_ANALOG:
-			state.lx = dpadToAnalogX(state.dpad);
-			state.ly = dpadToAnalogY(state.dpad);
+			state.lx = decayAnalogViaDpad(state.dpad, 'x', state.lx);
+			state.ly = decayAnalogViaDpad(state.dpad, 'y', state.ly);
 			state.dpad = dpadOnlyMask;
 			break;
 
 		case DpadMode::DPAD_MODE_RIGHT_ANALOG:
-			state.rx = dpadToAnalogX(state.dpad);
-			state.ry = dpadToAnalogY(state.dpad);
+			state.rx = decayAnalogViaDpad(state.dpad, 'x', state.rx);
+			state.ry = decayAnalogViaDpad(state.dpad, 'y', state.ry);
 			state.dpad = dpadOnlyMask;
 			break;
 
 		default:
 			break;
 	}
+
+	if (options.analogEmulationInactiveMode == AnalogEmulationInactiveMode::RETURN_TO_NEUTRAL) {
+		// send analogs NOT being affected by the dpad = LS/DP/RS mode to neutral,
+		// but only if they are not being set by standalone mappings or real analog
+		switch (activeDpadMode) {
+			case DpadMode::DPAD_MODE_LEFT_ANALOG:
+				if (!hasRightAnalogStick && !hasStandaloneRightAnalogMappings) {
+					state.rx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.rx);
+					state.ry = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.ry);
+				}
+				break;
+
+			case DpadMode::DPAD_MODE_RIGHT_ANALOG:
+				if (!hasLeftAnalogStick && !hasStandaloneLeftAnalogMappings) {
+					state.lx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.lx);
+					state.ly = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.ly);
+				}
+				break;
+
+			default:
+				if (!hasLeftAnalogStick && !hasStandaloneLeftAnalogMappings) {
+					state.lx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.lx);
+					state.ly = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.ly);
+				}
+				if (!hasRightAnalogStick && !hasStandaloneRightAnalogMappings) {
+					state.rx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.rx);
+					state.ry = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.ry);
+				}
+				break;
+		}
+	}
 }
 
 void Gamepad::read()
 {
 	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
-
-	// Get the midpoint value for the current mode
-	uint16_t joystickMid = GAMEPAD_JOYSTICK_MID;
-	if ( DriverManager::getInstance().getDriver() != nullptr ) {
-		joystickMid = DriverManager::getInstance().getDriver()->GetJoystickMidValue();
-	}
 
 	state.aux = 0
 		| (values & mapButtonFn->pinMask)   ? mapButtonFn->buttonMask : 0;
@@ -378,34 +411,38 @@ void Gamepad::read()
 
 	map48WayModeToggle = (values & map48WayMode->pinMask);
 
-	if (values & mapAnalogLSXNeg->pinMask) {
-		state.lx = GAMEPAD_JOYSTICK_MIN;
-	} else if (values & mapAnalogLSXPos->pinMask) {
-		state.lx = GAMEPAD_JOYSTICK_MAX;
-	} else {
-		state.lx = joystickMid;
-	}
-	if (values & mapAnalogLSYNeg->pinMask) {
-		state.ly = GAMEPAD_JOYSTICK_MIN;
-	} else if (values & mapAnalogLSYPos->pinMask) {
-		state.ly = GAMEPAD_JOYSTICK_MAX;
-	} else {
-		state.ly = joystickMid;
+	if (!hasLeftAnalogStick && hasStandaloneLeftAnalogMappings) {
+		if (values & mapAnalogLSXNeg->pinMask) {
+			state.lx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MIN, state.lx);
+		} else if (values & mapAnalogLSXPos->pinMask) {
+			state.lx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MAX, state.lx);
+		} else {
+			state.lx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.lx);
+		}
+		if (values & mapAnalogLSYNeg->pinMask) {
+			state.ly = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MIN, state.ly);
+		} else if (values & mapAnalogLSYPos->pinMask) {
+			state.ly = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MAX, state.ly);
+		} else {
+			state.ly = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.ly);
+		}
 	}
 
-	if (values & mapAnalogRSXNeg->pinMask) {
-		state.rx = GAMEPAD_JOYSTICK_MIN;
-	} else if (values & mapAnalogRSXPos->pinMask) {
-		state.rx = GAMEPAD_JOYSTICK_MAX;
-	} else {
-		state.rx = joystickMid;
-	}
-	if (values & mapAnalogRSYNeg->pinMask) {
-		state.ry = GAMEPAD_JOYSTICK_MIN;
-	} else if (values & mapAnalogRSYPos->pinMask) {
-		state.ry = GAMEPAD_JOYSTICK_MAX;
-	} else {
-		state.ry = joystickMid;
+	if (!hasRightAnalogStick && hasStandaloneRightAnalogMappings) {
+		if (values & mapAnalogRSXNeg->pinMask) {
+			state.rx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MIN, state.rx);
+		} else if (values & mapAnalogRSXPos->pinMask) {
+			state.rx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MAX, state.rx);
+		} else {
+			state.rx = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.rx);
+		}
+		if (values & mapAnalogRSYNeg->pinMask) {
+			state.ry = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MIN, state.ry);
+		} else if (values & mapAnalogRSYPos->pinMask) {
+			state.ry = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MAX, state.ry);
+		} else {
+			state.ry = decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MID, state.ry);
+		}
 	}
 
 	state.lt = 0;
@@ -427,18 +464,6 @@ void Gamepad::hotkey() {
 	if (hasHotkey == false ) {
 		lastAction = HOTKEY_NONE;
 	}
-}
-
-void Gamepad::clearState() {
-	state.dpad = 0;
-	state.buttons = 0;
-	state.aux = 0;
-	state.lx = GAMEPAD_JOYSTICK_MID;
-	state.ly = GAMEPAD_JOYSTICK_MID;
-	state.rx = GAMEPAD_JOYSTICK_MID;
-	state.ry = GAMEPAD_JOYSTICK_MID;
-	state.lt = 0;
-	state.rt = 0;
 }
 
 void Gamepad::clearRumbleState() {
