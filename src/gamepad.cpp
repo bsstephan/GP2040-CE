@@ -270,10 +270,6 @@ void Gamepad::process()
 	switch (activeDpadMode)
 	{
 		case DpadMode::DPAD_MODE_LEFT_ANALOG:
-			if (!hasRightAnalogStick) {
-				state.rx = joystickMid;
-				state.ry = joystickMid;
-			}
 			state.lx = dpadToAnalogX(state.dpad);
 			state.ly = dpadToAnalogY(state.dpad);
 			state.dpad &= ~dpadOnlyMask;
@@ -281,10 +277,6 @@ void Gamepad::process()
 			break;
 	
 		case DpadMode::DPAD_MODE_RIGHT_ANALOG:
-			if (!hasLeftAnalogStick) {
-				state.lx = joystickMid;
-				state.ly = joystickMid;
-			}
 			state.rx = dpadToAnalogX(state.dpad);
 			state.ry = dpadToAnalogY(state.dpad);
 			state.dpad &= ~dpadOnlyMask;
@@ -292,14 +284,6 @@ void Gamepad::process()
 			break;
 	
 		default:
-			//if (!hasLeftAnalogStick) {
-			//	state.lx = joystickMid;
-			//	state.ly = joystickMid;
-			//}
-			//if (!hasRightAnalogStick) {
-			//	state.rx = joystickMid;
-			//	state.ry = joystickMid;
-			//}
 			break;
 	}
 }
@@ -307,12 +291,6 @@ void Gamepad::process()
 void Gamepad::read()
 {
 	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
-
-	// Get the midpoint value for the current mode
-	uint16_t joystickMid = GAMEPAD_JOYSTICK_MID;
-	if ( DriverManager::getInstance().getDriver() != nullptr ) {
-		joystickMid = DriverManager::getInstance().getDriver()->GetJoystickMidValue();
-	}
 
 	state.aux = 0
 		| (values & mapButtonFn->pinMask)   ? mapButtonFn->buttonMask : 0;
@@ -369,30 +347,22 @@ void Gamepad::read()
 		state.lx = GAMEPAD_JOYSTICK_MIN;
 	} else if (values & mapAnalogLSXPos->pinMask) {
 		state.lx = GAMEPAD_JOYSTICK_MAX;
-	} else {
-		state.lx = joystickMid;
 	}
 	if (values & mapAnalogLSYNeg->pinMask) {
 		state.ly = GAMEPAD_JOYSTICK_MIN;
 	} else if (values & mapAnalogLSYPos->pinMask) {
 		state.ly = GAMEPAD_JOYSTICK_MAX;
-	} else {
-		state.ly = joystickMid;
 	}
 
 	if (values & mapAnalogRSXNeg->pinMask) {
 		state.rx = GAMEPAD_JOYSTICK_MIN;
 	} else if (values & mapAnalogRSXPos->pinMask) {
 		state.rx = GAMEPAD_JOYSTICK_MAX;
-	} else {
-		state.rx = joystickMid;
 	}
 	if (values & mapAnalogRSYNeg->pinMask) {
 		state.ry = GAMEPAD_JOYSTICK_MIN;
 	} else if (values & mapAnalogRSYPos->pinMask) {
 		state.ry = GAMEPAD_JOYSTICK_MAX;
-	} else {
-		state.ry = joystickMid;
 	}
 
 	state.lt = 0;
