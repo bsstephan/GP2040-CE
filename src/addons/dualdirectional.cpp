@@ -162,12 +162,12 @@ void DualDirectionalInput::process()
 void DualDirectionalInput::OverrideGamepad(Gamepad * gamepad, DpadMode mode, uint8_t dpad) {
     switch (mode) {
         case DPAD_MODE_LEFT_ANALOG:
-            gamepad->state.lx = dpadToAnalogX(dpad);
-            gamepad->state.ly = dpadToAnalogY(dpad);
+            gamepad->state.lx = decayAnalogViaDpad(dpad, 'x', gamepad->state.lx);
+            gamepad->state.ly = decayAnalogViaDpad(dpad, 'y', gamepad->state.ly);
             break;
         case DPAD_MODE_RIGHT_ANALOG:
-            gamepad->state.rx = dpadToAnalogX(dpad);
-            gamepad->state.ry = dpadToAnalogY(dpad);
+            gamepad->state.rx = decayAnalogViaDpad(dpad, 'x', gamepad->state.rx);
+            gamepad->state.ry = decayAnalogViaDpad(dpad, 'y', gamepad->state.ry);
             break;
         case DPAD_MODE_DIGITAL:
             gamepad->state.dpad = dpad;
