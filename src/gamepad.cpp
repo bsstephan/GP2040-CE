@@ -282,20 +282,36 @@ void Gamepad::process()
 	switch (activeDpadMode)
 	{
 		case DpadMode::DPAD_MODE_LEFT_ANALOG:
-			state.lx = dpadToAnalogX(state.dpad);
-			state.ly = dpadToAnalogY(state.dpad);
+			if (!hasRightAnalogStick) {
+				state.rx = dpadToAnalogX(0, state.rx);
+				state.ry = dpadToAnalogY(0, state.ry);
+			}
+			state.lx = dpadToAnalogX(state.dpad, state.lx);
+			state.ly = dpadToAnalogY(state.dpad, state.ly);
 			state.dpad &= ~dpadOnlyMask;
 			state.dpad = dpadOnlyMask;
 			break;
 
 		case DpadMode::DPAD_MODE_RIGHT_ANALOG:
-			state.rx = dpadToAnalogX(state.dpad);
-			state.ry = dpadToAnalogY(state.dpad);
+			if (!hasLeftAnalogStick) {
+				state.lx = dpadToAnalogX(0, state.lx);
+				state.ly = dpadToAnalogY(0, state.ly);
+			}
+			state.rx = dpadToAnalogX(state.dpad, state.rx);
+			state.ry = dpadToAnalogY(state.dpad, state.ry);
 			state.dpad &= ~dpadOnlyMask;
 			state.dpad = dpadOnlyMask;
 			break;
 
 		default:
+			if (!hasLeftAnalogStick) {
+				state.lx = dpadToAnalogX(0, state.lx);
+				state.ly = dpadToAnalogY(0, state.ly);
+			}
+			if (!hasRightAnalogStick) {
+				state.rx = dpadToAnalogX(0, state.rx);
+				state.ry = dpadToAnalogY(0, state.ry);
+			}
 			break;
 	}
 }
