@@ -1,41 +1,49 @@
+#include <algorithm>
+
 #include "GamepadState.h"
 #include "drivermanager.h"
 
+static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
+		DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
+static const double scale = 1 / 1000.0;
+
 // Convert the horizontal GamepadState dpad axis value into an analog value
-uint16_t dpadToAnalogX(uint8_t dpad)
+uint16_t dpadToAnalogX(const uint8_t dpad)
+{
+	return dpadToAnalogX(dpad, jsMid);
+}
+
+// Convert the vertical GamepadState dpad axis value into an analog value
+uint16_t dpadToAnalogY(const uint8_t dpad)
+{
+	return dpadToAnalogY(dpad, jsMid);
+}
+
+uint16_t dpadToAnalogX(const uint8_t dpad, const uint16_t currentValue)
 {
 	switch (dpad & (GAMEPAD_MASK_LEFT | GAMEPAD_MASK_RIGHT))
 	{
 		case GAMEPAD_MASK_LEFT:
-			return GAMEPAD_JOYSTICK_MIN;
-
+			return std::max((currentValue - (uint16_t)(jsMid * scale)), GAMEPAD_JOYSTICK_MIN);
 		case GAMEPAD_MASK_RIGHT:
-			return GAMEPAD_JOYSTICK_MAX;
-
+			return std::min((currentValue + (uint16_t)(jsMid * scale)), GAMEPAD_JOYSTICK_MAX);
 		default:
-			if ( DriverManager::getInstance().getDriver() != nullptr )
-				return DriverManager::getInstance().getDriver()->GetJoystickMidValue();
-			else
-				return GAMEPAD_JOYSTICK_MID;
+			return (currentValue > jsMid) ?
+				(currentValue - ((currentValue - jsMid) * scale)) : (currentValue + ((jsMid - currentValue) * scale));
 	}
 }
 
-// Convert the vertical GamepadState dpad axis value into an analog value
-uint16_t dpadToAnalogY(uint8_t dpad)
+uint16_t dpadToAnalogY(const uint8_t dpad, const uint16_t currentValue)
 {
 	switch (dpad & (GAMEPAD_MASK_UP | GAMEPAD_MASK_DOWN))
 	{
 		case GAMEPAD_MASK_UP:
-			return GAMEPAD_JOYSTICK_MIN;
-
+			return std::max((currentValue - (uint16_t)(jsMid * scale)), GAMEPAD_JOYSTICK_MIN);
 		case GAMEPAD_MASK_DOWN:
-			return GAMEPAD_JOYSTICK_MAX;
-
+			return std::min((currentValue + (uint16_t)(jsMid * scale)), GAMEPAD_JOYSTICK_MAX);
 		default:
-			if ( DriverManager::getInstance().getDriver() != nullptr )
-				return DriverManager::getInstance().getDriver()->GetJoystickMidValue();
-			else
-				return GAMEPAD_JOYSTICK_MID;
+			return (currentValue > jsMid) ?
+				(currentValue - ((currentValue - jsMid) * scale)) : (currentValue + ((jsMid - currentValue) * scale));
 	}
 }
 
