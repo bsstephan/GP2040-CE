@@ -2,48 +2,55 @@
 
 #include "GamepadState.h"
 #include "drivermanager.h"
-
-static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
-		DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
-static const double scale = 1 / 1000.0;
+#include "storagemanager.h"
 
 // Convert the horizontal GamepadState dpad axis value into an analog value
 uint16_t dpadToAnalogX(const uint8_t dpad)
 {
+	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
+			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
 	return dpadToAnalogX(dpad, jsMid);
 }
 
 // Convert the vertical GamepadState dpad axis value into an analog value
 uint16_t dpadToAnalogY(const uint8_t dpad)
 {
+	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
+			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
 	return dpadToAnalogY(dpad, jsMid);
 }
 
 uint16_t dpadToAnalogX(const uint8_t dpad, const uint16_t currentValue)
 {
+	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
+			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
+	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 25000.0;
+	static const uint16_t increment = jsMid * scale;
 	switch (dpad & (GAMEPAD_MASK_LEFT | GAMEPAD_MASK_RIGHT))
 	{
 		case GAMEPAD_MASK_LEFT:
-			return std::max((currentValue - (uint16_t)(jsMid * scale)), GAMEPAD_JOYSTICK_MIN);
+			return std::max((currentValue - increment), GAMEPAD_JOYSTICK_MIN);
 		case GAMEPAD_MASK_RIGHT:
-			return std::min((currentValue + (uint16_t)(jsMid * scale)), GAMEPAD_JOYSTICK_MAX);
+			return std::min((currentValue + increment), GAMEPAD_JOYSTICK_MAX);
 		default:
-			return (currentValue > jsMid) ?
-				(currentValue - ((currentValue - jsMid) * scale)) : (currentValue + ((jsMid - currentValue) * scale));
+			return (currentValue > jsMid) ? (currentValue - increment) : (currentValue + increment);
 	}
 }
 
 uint16_t dpadToAnalogY(const uint8_t dpad, const uint16_t currentValue)
 {
+	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
+			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
+	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 25000.0;
+	static const uint16_t increment = jsMid * scale;
 	switch (dpad & (GAMEPAD_MASK_UP | GAMEPAD_MASK_DOWN))
 	{
 		case GAMEPAD_MASK_UP:
-			return std::max((currentValue - (uint16_t)(jsMid * scale)), GAMEPAD_JOYSTICK_MIN);
+			return std::max((currentValue - increment), GAMEPAD_JOYSTICK_MIN);
 		case GAMEPAD_MASK_DOWN:
-			return std::min((currentValue + (uint16_t)(jsMid * scale)), GAMEPAD_JOYSTICK_MAX);
+			return std::min((currentValue + increment), GAMEPAD_JOYSTICK_MAX);
 		default:
-			return (currentValue > jsMid) ?
-				(currentValue - ((currentValue - jsMid) * scale)) : (currentValue + ((jsMid - currentValue) * scale));
+			return (currentValue > jsMid) ?	(currentValue - increment) : (currentValue + increment);
 	}
 }
 
