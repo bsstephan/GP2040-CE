@@ -30,6 +30,7 @@ message GamepadOptions
     optional InputModeAuthType xinputAuthType = 23;
     optional PS4ControllerIDMode ps4ControllerIDMode = 24;
     optional uint32 analogEmulationUpdateRate = 25 [default = 100];
+    optional AnalogEmulationInactiveMode analogEmulationInactiveMode = 26;
 }
 
 message KeyboardMapping
