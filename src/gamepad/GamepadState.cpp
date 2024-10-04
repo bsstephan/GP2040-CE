@@ -24,7 +24,7 @@ uint16_t dpadToAnalogX(const uint8_t dpad, const uint16_t currentValue)
 {
 	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
 			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
-	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 25000.0;
+	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 75000.0;
 	static const uint16_t increment = jsMid * scale;
 	switch (dpad & (GAMEPAD_MASK_LEFT | GAMEPAD_MASK_RIGHT))
 	{
@@ -41,7 +41,7 @@ uint16_t dpadToAnalogY(const uint8_t dpad, const uint16_t currentValue)
 {
 	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
 			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
-	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 25000.0;
+	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 75000.0;
 	static const uint16_t increment = jsMid * scale;
 	switch (dpad & (GAMEPAD_MASK_UP | GAMEPAD_MASK_DOWN))
 	{
