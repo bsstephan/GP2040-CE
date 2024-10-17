@@ -223,50 +223,59 @@ void Gamepad::process()
 
 	state.dpad = runSOCDCleaner(resolveSOCDMode(options), state.dpad);
 
+	// set the analog emulation value for the current mode
 	switch (activeDpadMode)
 	{
 		case DpadMode::DPAD_MODE_LEFT_ANALOG:
-			if (!hasRightAnalogStick) {
-				state.rx = joystickMid;
-				state.ry = joystickMid;
-			}
-			state.lx = dpadToAnalogX(state.dpad);
-			state.ly = dpadToAnalogY(state.dpad);
+			state.lx = dpadToAnalogX(state.dpad, state.lx);
+			state.ly = dpadToAnalogY(state.dpad, state.ly);
 			state.dpad = 0;
 			break;
 
 		case DpadMode::DPAD_MODE_RIGHT_ANALOG:
-			if (!hasLeftAnalogStick) {
-				state.lx = joystickMid;
-				state.ly = joystickMid;
-			}
-			state.rx = dpadToAnalogX(state.dpad);
-			state.ry = dpadToAnalogY(state.dpad);
+			state.rx = dpadToAnalogX(state.dpad, state.rx);
+			state.ry = dpadToAnalogY(state.dpad, state.ry);
 			state.dpad = 0;
 			break;
 
 		default:
-			if (!hasLeftAnalogStick) {
-				state.lx = joystickMid;
-				state.ly = joystickMid;
-			}
-			if (!hasRightAnalogStick) {
-				state.rx = joystickMid;
-				state.ry = joystickMid;
-			}
 			break;
+	}
+
+	// (un)set the analog emulation value for the other mode(s)
+	if (options.analogEmulationInactiveMode == AnalogEmulationInactiveMode::RETURN_TO_NEUTRAL) {
+		switch (activeDpadMode) {
+			case DpadMode::DPAD_MODE_LEFT_ANALOG:
+				if (!hasRightAnalogStick) {
+					state.rx = dpadToAnalogX(0, state.rx);
+					state.ry = dpadToAnalogY(0, state.ry);
+				}
+				break;
+
+			case DpadMode::DPAD_MODE_RIGHT_ANALOG:
+				if (!hasLeftAnalogStick) {
+					state.lx = dpadToAnalogX(0, state.lx);
+					state.ly = dpadToAnalogY(0, state.ly);
+				}
+				break;
+
+			default:
+				if (!hasLeftAnalogStick) {
+					state.lx = dpadToAnalogX(0, state.lx);
+					state.ly = dpadToAnalogY(0, state.ly);
+				}
+				if (!hasRightAnalogStick) {
+					state.rx = dpadToAnalogX(0, state.rx);
+					state.ry = dpadToAnalogY(0, state.ry);
+				}
+				break;
+		}
 	}
 }
 
 void Gamepad::read()
 {
 	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
-
-	// Get the midpoint value for the current mode
-	uint16_t joystickMid = GAMEPAD_JOYSTICK_MID;
-	if ( DriverManager::getInstance().getDriver() != nullptr ) {
-		joystickMid = DriverManager::getInstance().getDriver()->GetJoystickMidValue();
-	}
 
 	state.aux = 0
 		| (values & mapButtonFn->pinMask)   ? mapButtonFn->buttonMask : 0;
@@ -315,10 +324,6 @@ void Gamepad::read()
 	else if (values & mapButtonRS->pinMask)	activeDpadMode = DpadMode::DPAD_MODE_RIGHT_ANALOG;
 	else					activeDpadMode = options.dpadMode;
 
-	state.lx = joystickMid;
-	state.ly = joystickMid;
-	state.rx = joystickMid;
-	state.ry = joystickMid;
 	state.lt = 0;
 	state.rt = 0;
 }
