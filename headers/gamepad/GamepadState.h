@@ -151,10 +151,12 @@ struct GamepadState
 };
 
 // Convert the horizontal GamepadState dpad axis value into an analog value
-uint16_t dpadToAnalogX(uint8_t dpad);
+uint16_t dpadToAnalogX(const uint8_t dpad);
+uint16_t dpadToAnalogX(const uint8_t dpad, const uint16_t currentValue);
 
 // Convert the vertical GamepadState dpad axis value into an analog value
-uint16_t dpadToAnalogY(uint8_t dpad);
+uint16_t dpadToAnalogY(const uint8_t dpad);
+uint16_t dpadToAnalogY(const uint8_t dpad, const uint16_t currentValue);
 
 uint8_t getMaskFromDirection(DpadDirection direction);
 
