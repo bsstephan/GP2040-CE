@@ -26,7 +26,7 @@ message GamepadOptions
     optional int32 inputModeR2 = 19;
     optional bool ps4ReportHack = 20 [deprecated = true];
     optional InputModeAuthType ps4AuthType = 21;
-    optional InputModeAuthType ps5AuthType = 22;
+    optional InputModeAuthType ps5AuthType = 22 [default = INPUT_MODE_AUTH_TYPE_NONE];
     optional InputModeAuthType xinputAuthType = 23;
     optional PS4ControllerIDMode ps4ControllerIDMode = 24;
     optional bool usbDescOverride = 25;
