@@ -380,26 +380,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     // forcedSetupMode
     INIT_UNSET_PROPERTY(config.forcedSetupOptions, mode, DEFAULT_FORCED_SETUP_MODE);
 
-    // keyboardMapping
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyDpadUp, KEY_DPAD_UP);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyDpadDown, KEY_DPAD_DOWN);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyDpadRight, KEY_DPAD_RIGHT);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyDpadLeft, KEY_DPAD_LEFT);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonB1, KEY_BUTTON_B1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonB2, KEY_BUTTON_B2);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonR2, KEY_BUTTON_R2);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonL2, KEY_BUTTON_L2);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonB3, KEY_BUTTON_B3);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonB4, KEY_BUTTON_B4);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonR1, KEY_BUTTON_R1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonL1, KEY_BUTTON_L1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonS1, KEY_BUTTON_S1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonS2, KEY_BUTTON_S2);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonL3, KEY_BUTTON_L3);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonR3, KEY_BUTTON_R3);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonA1, KEY_BUTTON_A1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonA2, KEY_BUTTON_A2);
-
     // displayOptions
     INIT_UNSET_PROPERTY(config.displayOptions, enabled, !!HAS_I2C_DISPLAY);
     INIT_UNSET_PROPERTY(config.displayOptions, deprecatedI2cBlock, (DISPLAY_I2C_BLOCK == i2c0) ? 0 : 1);
@@ -911,28 +891,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, enabled, KEYBOARD_HOST_ENABLED);
     INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, deprecatedPinDplus, KEYBOARD_HOST_PIN_DPLUS);
     INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, deprecatedPin5V, KEYBOARD_HOST_PIN_5V);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyDpadUp, KEY_DPAD_UP);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyDpadDown, KEY_DPAD_DOWN);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyDpadRight, KEY_DPAD_RIGHT);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyDpadLeft, KEY_DPAD_LEFT);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonB1, KEY_BUTTON_B1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonB2, KEY_BUTTON_B2);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonR2, KEY_BUTTON_R2);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonL2, KEY_BUTTON_L2);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonB3, KEY_BUTTON_B3);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonB4, KEY_BUTTON_B4);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonR1, KEY_BUTTON_R1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonL1, KEY_BUTTON_L1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonS1, KEY_BUTTON_S1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonS2, KEY_BUTTON_S2);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonL3, KEY_BUTTON_L3);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonR3, KEY_BUTTON_R3);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonA1, KEY_BUTTON_A1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonA2, KEY_BUTTON_A2);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, mouseLeft, 0);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, mouseMiddle, 0);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, mouseRight, 0);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, mouseSensitivity, KEYBOARD_HOST_MOUSE_SENSITIVITY);
 
     // addonOptions.focusModeOptions
     INIT_UNSET_PROPERTY(config.addonOptions.focusModeOptions, enabled, !!FOCUS_MODE_ENABLED);
