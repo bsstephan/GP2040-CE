@@ -42,24 +42,25 @@ message GamepadOptions
 
 message KeyboardMapping
 {
-    optional uint32 keyDpadUp = 1;
-    optional uint32 keyDpadDown = 2;
-    optional uint32 keyDpadLeft = 3;
-    optional uint32 keyDpadRight = 4;
-    optional uint32 keyButtonB1 = 5;
-    optional uint32 keyButtonB2 = 6;
-    optional uint32 keyButtonB3 = 7;
-    optional uint32 keyButtonB4 = 8;
-    optional uint32 keyButtonL1 = 9;
-    optional uint32 keyButtonR1 = 10;
-    optional uint32 keyButtonL2 = 11;
-    optional uint32 keyButtonR2 = 12;
-    optional uint32 keyButtonS1 = 13;
-    optional uint32 keyButtonS2 = 14;
-    optional uint32 keyButtonL3 = 15;
-    optional uint32 keyButtonR3 = 16;
-    optional uint32 keyButtonA1 = 17;
-    optional uint32 keyButtonA2 = 18;
+    // defaults are values from lib/tinyusb/src/class/hid/hid.h
+    optional uint32 keyDpadUp = 1       [default = 82];
+    optional uint32 keyDpadDown = 2     [default = 81];
+    optional uint32 keyDpadLeft = 3     [default = 80];
+    optional uint32 keyDpadRight = 4    [default = 79];
+    optional uint32 keyButtonB1 = 5     [default = 225];
+    optional uint32 keyButtonB2 = 6     [default = 29];
+    optional uint32 keyButtonB3 = 7     [default = 224];
+    optional uint32 keyButtonB4 = 8     [default = 226];
+    optional uint32 keyButtonL1 = 9     [default = 6];
+    optional uint32 keyButtonR1 = 10    [default = 44];
+    optional uint32 keyButtonL2 = 11    [default = 25];
+    optional uint32 keyButtonR2 = 12    [default = 27];
+    optional uint32 keyButtonS1 = 13    [default = 34];
+    optional uint32 keyButtonS2 = 14    [default = 30];
+    optional uint32 keyButtonL3 = 15    [default = 46];
+    optional uint32 keyButtonR3 = 16    [default = 45];
+    optional uint32 keyButtonA1 = 17    [default = 38];
+    optional uint32 keyButtonA2 = 18    [default = 59];
     optional uint32 keyButtonA3 = 19;
     optional uint32 keyButtonA4 = 20;
     optional uint32 keyButtonE1 = 21;
@@ -748,7 +749,7 @@ message KeyboardHostOptions
     optional uint32 mouseLeft = 5;
     optional uint32 mouseMiddle = 6;
     optional uint32 mouseRight = 7;
-    optional uint32 mouseSensitivity = 8;
+    optional uint32 mouseSensitivity = 8 [default = 50];
     optional MouseMovementMode movementMode = 9;
 }
 
