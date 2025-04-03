@@ -151,13 +151,9 @@ struct GamepadState
 	float ema_2_y {GAMEPAD_JOYSTICK_MID};
 };
 
-// Convert the horizontal GamepadState dpad axis value into an analog value
-uint16_t dpadToAnalogX(const uint8_t dpad);
-uint16_t dpadToAnalogX(const uint8_t dpad, const uint16_t currentValue);
-
-// Convert the vertical GamepadState dpad axis value into an analog value
-uint16_t dpadToAnalogY(const uint8_t dpad);
-uint16_t dpadToAnalogY(const uint8_t dpad, const uint16_t currentValue);
+// Gradually convert an analog axis value to its desired value
+uint16_t decayAnalogViaDpad(const uint8_t dpad, const char axis, const uint16_t currentValue);
+uint16_t decayAnalogToPosOrNeg(const uint16_t direction, const uint16_t currentValue);
 
 uint8_t getMaskFromDirection(DpadDirection direction);
 

@@ -4,54 +4,52 @@
 #include "drivermanager.h"
 #include "storagemanager.h"
 
-// Convert the horizontal GamepadState dpad axis value into an analog value
-uint16_t dpadToAnalogX(const uint8_t dpad)
+// Gradually convert an analog axis value to its desired value
+// Given the current state (neg/pos value of a specific axis), and the current dpad
+// direction, scale the progress to that value
+uint16_t decayAnalogViaDpad(const uint8_t dpad, const char axis, const uint16_t currentValue)
 {
 	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
 			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
-	return dpadToAnalogX(dpad, jsMid);
+	if (axis == 'x') {
+		switch (dpad & (GAMEPAD_MASK_LEFT | GAMEPAD_MASK_RIGHT))
+		{
+			case GAMEPAD_MASK_LEFT:
+				return decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MIN, currentValue);
+			case GAMEPAD_MASK_RIGHT:
+				return decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MAX, currentValue);
+			default:
+				return decayAnalogToPosOrNeg(jsMid, currentValue);
+		}
+	} else {
+		switch (dpad & (GAMEPAD_MASK_UP | GAMEPAD_MASK_DOWN))
+		{
+			case GAMEPAD_MASK_UP:
+				return decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MIN, currentValue);
+			case GAMEPAD_MASK_DOWN:
+				return decayAnalogToPosOrNeg(GAMEPAD_JOYSTICK_MAX, currentValue);
+			default:
+				return decayAnalogToPosOrNeg(jsMid, currentValue);
+		}
+	}
 }
 
-// Convert the vertical GamepadState dpad axis value into an analog value
-uint16_t dpadToAnalogY(const uint8_t dpad)
-{
-	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
-			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
-	return dpadToAnalogY(dpad, jsMid);
-}
 
-uint16_t dpadToAnalogX(const uint8_t dpad, const uint16_t currentValue)
+// Gradually convert an analog axis value to its desired value
+// Given the current state (neg/pos value of a generic axis), and where (neg/pos on that axis) it
+// should go, scale the progress to that value
+uint16_t decayAnalogToPosOrNeg(const uint16_t direction, const uint16_t currentValue)
 {
 	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
 			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
 	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 75000.0;
-	static const uint16_t increment = jsMid * scale;
-	switch (dpad & (GAMEPAD_MASK_LEFT | GAMEPAD_MASK_RIGHT))
-	{
-		case GAMEPAD_MASK_LEFT:
-			return std::max((currentValue - increment), GAMEPAD_JOYSTICK_MIN);
-		case GAMEPAD_MASK_RIGHT:
-			return std::min((currentValue + increment), GAMEPAD_JOYSTICK_MAX);
-		default:
-			return (currentValue > jsMid) ? (currentValue - increment) : (currentValue + increment);
-	}
-}
-
-uint16_t dpadToAnalogY(const uint8_t dpad, const uint16_t currentValue)
-{
-	static const uint16_t jsMid = (DriverManager::getInstance().getDriver() != nullptr) ?
-			DriverManager::getInstance().getDriver()->GetJoystickMidValue() : GAMEPAD_JOYSTICK_MID;
-	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 75000.0;
-	static const uint16_t increment = jsMid * scale;
-	switch (dpad & (GAMEPAD_MASK_UP | GAMEPAD_MASK_DOWN))
-	{
-		case GAMEPAD_MASK_UP:
-			return std::max((currentValue - increment), GAMEPAD_JOYSTICK_MIN);
-		case GAMEPAD_MASK_DOWN:
-			return std::min((currentValue + increment), GAMEPAD_JOYSTICK_MAX);
-		default:
-			return (currentValue > jsMid) ?	(currentValue - increment) : (currentValue + increment);
-	}
+	static const uint16_t increment = jsMid * scale;	// TODO: make this taper off as it approaches target?
+	if (direction < jsMid)		// analog is going towards left/up
+		return std::max((currentValue - increment), GAMEPAD_JOYSTICK_MIN);
+	else if (direction > jsMid)	// ... right/down
+		return std::min((currentValue + increment), GAMEPAD_JOYSTICK_MAX);
+	else				// ... neutral
+		return (currentValue > jsMid) ? (currentValue - increment) : (currentValue + increment);
 }
 
 uint8_t getMaskFromDirection(DpadDirection direction)
