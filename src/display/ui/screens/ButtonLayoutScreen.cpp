@@ -234,11 +234,11 @@ void ButtonLayoutScreen::generateHeader() {
     if (showSocdMode) {
         switch (Gamepad::resolveSOCDMode(gamepad->getOptions()))
         {
-            case SOCD_MODE_NEUTRAL:               statusBar += " SOCD-N"; break;
-            case SOCD_MODE_UP_PRIORITY:           statusBar += " SOCD-U"; break;
-            case SOCD_MODE_SECOND_INPUT_PRIORITY: statusBar += " SOCD-L"; break;
-            case SOCD_MODE_FIRST_INPUT_PRIORITY:  statusBar += " SOCD-F"; break;
-            case SOCD_MODE_BYPASS:                statusBar += " SOCD-X"; break;
+            case SOCD_MODE_NEUTRAL:               statusBar += " S-N"; break;
+            case SOCD_MODE_UP_PRIORITY:           statusBar += " S-U"; break;
+            case SOCD_MODE_SECOND_INPUT_PRIORITY: statusBar += " S-L"; break;
+            case SOCD_MODE_FIRST_INPUT_PRIORITY:  statusBar += " S-F"; break;
+            case SOCD_MODE_BYPASS:                statusBar += " S-X"; break;
         }
     }
 
