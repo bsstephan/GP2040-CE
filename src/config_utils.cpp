@@ -47,6 +47,8 @@
 
 #include "pico/platform.h"
 
+#define BOARD_CONFIG_EEPROM_ADDRESS_START	EEPROM_ADDRESS_START - EEPROM_SIZE_BYTES
+
 // -----------------------------------------------------
 // Default values
 // -----------------------------------------------------
@@ -104,12 +106,6 @@
 #ifndef DEFAULT_INPUT_MODE_R2
     #define DEFAULT_INPUT_MODE_R2 INPUT_MODE_KEYBOARD
 #endif
-#ifndef DEFAULT_DPAD_MODE
-    #define DEFAULT_DPAD_MODE DPAD_MODE_DIGITAL
-#endif
-#ifndef DEFAULT_SOCD_MODE
-    #define DEFAULT_SOCD_MODE SOCD_MODE_NEUTRAL
-#endif
 #ifndef DEFAULT_FORCED_SETUP_MODE
     #define DEFAULT_FORCED_SETUP_MODE FORCED_SETUP_MODE_OFF
 #endif
@@ -130,10 +126,6 @@
 
 #ifndef DEFAULT_PS4AUTHENTICATION_TYPE
     #define DEFAULT_PS4AUTHENTICATION_TYPE INPUT_MODE_AUTH_TYPE_NONE
-#endif
-
-#ifndef DEFAULT_PS5AUTHENTICATION_TYPE
-    #define DEFAULT_PS5AUTHENTICATION_TYPE INPUT_MODE_AUTH_TYPE_NONE
 #endif
 
 #ifndef DEFAULT_XINPUTAUTHENTICATION_TYPE
@@ -287,8 +279,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
 
     // gamepadOptions
     INIT_UNSET_PROPERTY(config.gamepadOptions, inputMode, DEFAULT_INPUT_MODE);
-    INIT_UNSET_PROPERTY(config.gamepadOptions, dpadMode, DEFAULT_DPAD_MODE);
-    INIT_UNSET_PROPERTY(config.gamepadOptions, socdMode, DEFAULT_SOCD_MODE);
     INIT_UNSET_PROPERTY(config.gamepadOptions, invertXAxis, false);
     INIT_UNSET_PROPERTY(config.gamepadOptions, switchTpShareForDs4, false);
     INIT_UNSET_PROPERTY(config.gamepadOptions, lockHotkeys, DEFAULT_LOCK_HOTKEYS);
@@ -305,7 +295,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.gamepadOptions, inputModeR1, DEFAULT_INPUT_MODE_R1);
     INIT_UNSET_PROPERTY(config.gamepadOptions, inputModeR2, DEFAULT_INPUT_MODE_R2);
     INIT_UNSET_PROPERTY(config.gamepadOptions, ps4AuthType, DEFAULT_PS4AUTHENTICATION_TYPE);
-    INIT_UNSET_PROPERTY(config.gamepadOptions, ps5AuthType, DEFAULT_PS5AUTHENTICATION_TYPE);
     INIT_UNSET_PROPERTY(config.gamepadOptions, xinputAuthType, DEFAULT_XINPUTAUTHENTICATION_TYPE);
     INIT_UNSET_PROPERTY(config.gamepadOptions, ps4ControllerIDMode, DEFAULT_PS4_ID_MODE);
     INIT_UNSET_PROPERTY(config.gamepadOptions, usbDescOverride, DEFAULT_USB_DESC_OVERRIDE);
@@ -386,26 +375,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
 
     // forcedSetupMode
     INIT_UNSET_PROPERTY(config.forcedSetupOptions, mode, DEFAULT_FORCED_SETUP_MODE);
-
-    // keyboardMapping
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyDpadUp, KEY_DPAD_UP);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyDpadDown, KEY_DPAD_DOWN);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyDpadRight, KEY_DPAD_RIGHT);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyDpadLeft, KEY_DPAD_LEFT);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonB1, KEY_BUTTON_B1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonB2, KEY_BUTTON_B2);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonR2, KEY_BUTTON_R2);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonL2, KEY_BUTTON_L2);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonB3, KEY_BUTTON_B3);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonB4, KEY_BUTTON_B4);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonR1, KEY_BUTTON_R1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonL1, KEY_BUTTON_L1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonS1, KEY_BUTTON_S1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonS2, KEY_BUTTON_S2);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonL3, KEY_BUTTON_L3);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonR3, KEY_BUTTON_R3);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonA1, KEY_BUTTON_A1);
-    INIT_UNSET_PROPERTY(config.keyboardMapping, keyButtonA2, KEY_BUTTON_A2);
 
     // displayOptions
     INIT_UNSET_PROPERTY(config.displayOptions, enabled, !!HAS_I2C_DISPLAY);
@@ -536,42 +505,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.animationOptions, rainbowCycleTime, LEDS_RAINBOW_CYCLE_TIME);
     INIT_UNSET_PROPERTY(config.animationOptions, themeIndex, LEDS_THEME_INDEX);
     INIT_UNSET_PROPERTY(config.animationOptions, hasCustomTheme, false);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeUp, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeDown, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeLeft, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeRight, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeB1, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeB2, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeB3, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeB4, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeL1, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeR1, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeL2, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeR2, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeS1, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeS2, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeL3, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeR3, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeA1, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeA2, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeUpPressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeDownPressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeLeftPressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeRightPressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeB1Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeB2Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeB3Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeB4Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeL1Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeR1Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeL2Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeR2Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeS1Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeS2Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeL3Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeR3Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeA1Pressed, 0);
-    INIT_UNSET_PROPERTY(config.animationOptions, customThemeA2Pressed, 0);
     INIT_UNSET_PROPERTY(config.animationOptions, buttonPressColorCooldownTimeInMs, LEDS_PRESS_COLOR_COOLDOWN_TIME);
     INIT_UNSET_PROPERTY(config.animationOptions, ambientLightEffectsCountIndex, AMBIENT_LIGHT_EFFECT);
     INIT_UNSET_PROPERTY(config.animationOptions, alStaticColorBrightnessCustomX, AMBIENT_STATIC_COLOR_BRIGHTNESS);
@@ -583,10 +516,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.animationOptions, ambientLightBreathSpeed, AMBIENT_BREATH_SPEED);
     INIT_UNSET_PROPERTY(config.animationOptions, alCustomStaticThemeIndex, AMBIENT_CUSTOM_THEME);
     INIT_UNSET_PROPERTY(config.animationOptions, alCustomStaticColorIndex, AMBIENT_STATIC_COLOR);
-
-    // addonOptions.bootselButtonOptions
-    INIT_UNSET_PROPERTY(config.addonOptions.bootselButtonOptions, enabled, !!BOOTSEL_BUTTON_ENABLED);
-    INIT_UNSET_PROPERTY(config.addonOptions.bootselButtonOptions, buttonMap, BOOTSEL_BUTTON_MASK);
 
     // addonOptions.onBoardLedOptions
     INIT_UNSET_PROPERTY(config.addonOptions.onBoardLedOptions, enabled, !!BOARD_LED_ENABLED);
@@ -682,28 +611,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.addonOptions.dualDirectionalOptions, dpadMode, static_cast<DpadMode>(DUAL_DIRECTIONAL_STICK_MODE));
     INIT_UNSET_PROPERTY(config.addonOptions.dualDirectionalOptions, combineMode, DualDirectionalCombinationMode::MIXED_MODE);
     INIT_UNSET_PROPERTY(config.addonOptions.dualDirectionalOptions, fourWayMode, false);
-
-	// addonOptions.tiltOptions
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, enabled, !!TILT_ENABLED);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tilt1Pin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt1LeftX, TILT1_FACTOR_LEFT_X);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt1LeftY, TILT1_FACTOR_LEFT_Y);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt1RightX, TILT1_FACTOR_RIGHT_X);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt1RightY, TILT1_FACTOR_RIGHT_Y);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tilt2Pin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt2LeftX, TILT2_FACTOR_LEFT_X);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt2LeftY, TILT2_FACTOR_LEFT_Y);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt2RightX, TILT2_FACTOR_RIGHT_X);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, factorTilt2RightY, TILT2_FACTOR_RIGHT_Y);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltLeftAnalogDownPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltLeftAnalogUpPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltLeftAnalogLeftPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltLeftAnalogRightPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltRightAnalogDownPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltRightAnalogUpPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltRightAnalogLeftPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltRightAnalogRightPin, (Pin_t)-1);
-    INIT_UNSET_PROPERTY(config.addonOptions.tiltOptions, tiltSOCDMode, TILT_SOCD_MODE);
 
     // addonOptions.buzzerOptions
     INIT_UNSET_PROPERTY(config.addonOptions.buzzerOptions, enabled, !!BUZZER_ENABLED);
@@ -805,24 +712,6 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, enabled, KEYBOARD_HOST_ENABLED);
     INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, deprecatedPinDplus, KEYBOARD_HOST_PIN_DPLUS);
     INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions, deprecatedPin5V, KEYBOARD_HOST_PIN_5V);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyDpadUp, KEY_DPAD_UP);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyDpadDown, KEY_DPAD_DOWN);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyDpadRight, KEY_DPAD_RIGHT);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyDpadLeft, KEY_DPAD_LEFT);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonB1, KEY_BUTTON_B1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonB2, KEY_BUTTON_B2);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonR2, KEY_BUTTON_R2);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonL2, KEY_BUTTON_L2);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonB3, KEY_BUTTON_B3);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonB4, KEY_BUTTON_B4);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonR1, KEY_BUTTON_R1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonL1, KEY_BUTTON_L1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonS1, KEY_BUTTON_S1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonS2, KEY_BUTTON_S2);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonL3, KEY_BUTTON_L3);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonR3, KEY_BUTTON_R3);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonA1, KEY_BUTTON_A1);
-    INIT_UNSET_PROPERTY(config.addonOptions.keyboardHostOptions.mapping, keyButtonA2, KEY_BUTTON_A2);
 
     // addonOptions.focusModeOptions
     INIT_UNSET_PROPERTY(config.addonOptions.focusModeOptions, enabled, !!FOCUS_MODE_ENABLED);
@@ -1080,29 +969,6 @@ void gpioMappingsMigrationCore(Config& config)
 
     if (reverseOptions.enabled) {
         fromProtoBuf(reverseOptions.has_buttonPin, &reverseOptions.buttonPin, GpioAction::BUTTON_PRESS_INPUT_REVERSE);
-    }
-
-    // verify that tilt factors are not set to -1
-    if (tiltOptions.enabled) {
-        if (tiltOptions.factorTilt1LeftX == -1) tiltOptions.factorTilt1LeftX = TILT1_FACTOR_LEFT_X;
-        if (tiltOptions.factorTilt1LeftY == -1) tiltOptions.factorTilt1LeftY = TILT1_FACTOR_LEFT_Y;
-        if (tiltOptions.factorTilt1RightX == -1) tiltOptions.factorTilt1RightX = TILT1_FACTOR_RIGHT_X;
-        if (tiltOptions.factorTilt1RightY == -1) tiltOptions.factorTilt1RightY = TILT1_FACTOR_RIGHT_Y;
-        if (tiltOptions.factorTilt2LeftX == -1) tiltOptions.factorTilt2LeftX = TILT2_FACTOR_LEFT_X;
-        if (tiltOptions.factorTilt2LeftY == -1) tiltOptions.factorTilt2LeftY = TILT2_FACTOR_LEFT_Y;
-        if (tiltOptions.factorTilt2RightX == -1) tiltOptions.factorTilt2RightX = TILT2_FACTOR_RIGHT_X;
-        if (tiltOptions.factorTilt2RightY == -1) tiltOptions.factorTilt2RightY = TILT2_FACTOR_RIGHT_Y;
-
-        fromProtoBuf(tiltOptions.has_tilt1Pin, &tiltOptions.tilt1Pin, GpioAction::ANALOG_DIRECTION_MOD_LOW);
-        fromProtoBuf(tiltOptions.has_tilt2Pin, &tiltOptions.tilt2Pin, GpioAction::ANALOG_DIRECTION_MOD_HIGH);
-        fromProtoBuf(tiltOptions.has_tiltLeftAnalogUpPin, &tiltOptions.tiltLeftAnalogUpPin, GpioAction::ANALOG_DIRECTION_LS_Y_NEG);
-        fromProtoBuf(tiltOptions.has_tiltLeftAnalogDownPin, &tiltOptions.tiltLeftAnalogDownPin, GpioAction::ANALOG_DIRECTION_LS_Y_POS);
-        fromProtoBuf(tiltOptions.has_tiltLeftAnalogLeftPin, &tiltOptions.tiltLeftAnalogLeftPin, GpioAction::ANALOG_DIRECTION_LS_X_NEG);
-        fromProtoBuf(tiltOptions.has_tiltLeftAnalogRightPin, &tiltOptions.tiltLeftAnalogRightPin, GpioAction::ANALOG_DIRECTION_LS_X_POS);
-        fromProtoBuf(tiltOptions.has_tiltRightAnalogUpPin, &tiltOptions.tiltRightAnalogUpPin, GpioAction::ANALOG_DIRECTION_RS_Y_NEG);
-        fromProtoBuf(tiltOptions.has_tiltRightAnalogDownPin, &tiltOptions.tiltRightAnalogDownPin, GpioAction::ANALOG_DIRECTION_RS_Y_POS);
-        fromProtoBuf(tiltOptions.has_tiltRightAnalogLeftPin, &tiltOptions.tiltRightAnalogLeftPin, GpioAction::ANALOG_DIRECTION_RS_X_NEG);
-        fromProtoBuf(tiltOptions.has_tiltRightAnalogRightPin, &tiltOptions.tiltRightAnalogRightPin, GpioAction::ANALOG_DIRECTION_RS_X_POS);
     }
 
     // Assign all potential board config pins
@@ -1572,16 +1438,14 @@ static const uint32_t FOOTER_MAGIC = 0xd2f1e365;
 
 // Verify that the maximum size of the serialized Config object fits into the allocated flash block
 #if defined(Config_size)
-    static_assert(Config_size + sizeof(ConfigFooter) <= EEPROM_SIZE_BYTES, "Maximum size of Config exceeds the maximum size allocated for FlashPROM");
+    static_assert(Config_size + sizeof(ConfigFooter) <= EEPROM_SIZE_BYTES * 2, "Maximum size of Config exceeds the maximum size allocated for FlashPROM");
 #else
     #error "Maximum size of Config cannot be determined statically, make sure that you do not use any dynamically sized arrays or strings"
 #endif
 
-static bool loadConfigInner(Config& config)
+static bool loadConfig(Config& config, uint32_t start)
 {
-    config = Config Config_init_zero;
-
-    const uint8_t* flashEnd = reinterpret_cast<const uint8_t*>(EEPROM_ADDRESS_START) + EEPROM_SIZE_BYTES;
+    const uint8_t* flashEnd = reinterpret_cast<const uint8_t*>(start) + EEPROM_SIZE_BYTES;
     const ConfigFooter& footer = *reinterpret_cast<const ConfigFooter*>(flashEnd - sizeof(ConfigFooter));
 
     // Check for presence of magic value
@@ -1606,20 +1470,33 @@ static bool loadConfigInner(Config& config)
 
     // We are now sufficiently confident that the data is valid so we run the deserialization
     pb_istream_t inputStream = pb_istream_from_buffer(dataPtr, footer.dataSize);
-    return pb_decode(&inputStream, Config_fields, &config);
+    // PB_DECODE_NOINIT: "Do not initialize structure before decoding. This can be used to combine
+    // multiple messages, or if you have already initialized the message structure yourself."
+    return pb_decode_ex(&inputStream, Config_fields, &config, PB_DECODE_NOINIT);
+}
+
+/**
+ * @brief load user config (user settings and overrides)
+ */
+static bool loadUserConfig(Config& config)
+{
+    return loadConfig(config, EEPROM_ADDRESS_START);
+}
+
+/**
+ * @brief - load board config (customizations specific to a board/device model)
+ */
+static bool loadBoardConfig(Config& config)
+{
+    return loadConfig(config, BOARD_CONFIG_EEPROM_ADDRESS_START);
 }
 
 void ConfigUtils::load(Config& config)
 {
-    // First try to load from Protobuf storage, if that fails fall back to legacy storage.
-    const bool loaded = loadConfigInner(config) | fromLegacyStorage(config);
-
-    if (!loaded)
-    {
-        // We could neither deserialize Protobuf config data nor legacy config data.
-        // We are probably dealing with a new device and therefore initialize the config to default values.
-        config = Config Config_init_default;
-    }
+    // load the config with defaults, and then overlay board and user configs on top
+    config = Config Config_init_default;
+    loadBoardConfig(config);
+    loadUserConfig(config);
 
     // run migrations
     if (!config.migrations.hotkeysMigrated)
@@ -1648,7 +1525,7 @@ void ConfigUtils::load(Config& config)
     // Migrate old JS slider add-on to core
     migrateJSliderToCore(config);
 
-    // Update boardVersion, in case we migrated from an older version
+    // Update boardVersion
     strncpy(config.boardVersion, GP2040VERSION, sizeof(config.boardVersion));
     config.boardVersion[sizeof(config.boardVersion) - 1] = '\0';
     config.has_boardVersion = true;
