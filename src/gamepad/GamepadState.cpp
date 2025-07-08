@@ -38,7 +38,7 @@ uint16_t decayAnalogViaDpad(const uint8_t dpad, const char axis, const uint16_t 
 // should go, scale the progress to that value
 uint16_t decayAnalogToPosOrNeg(const uint16_t direction, const uint16_t currentValue)
 {
-	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 75000.0;
+	static const double scale = Storage::getInstance().getGamepadOptions().analogEmulationUpdateRate / 50000.0;
 	static const uint16_t increment = GAMEPAD_JOYSTICK_MID * scale;	// TODO: make this taper off as it approaches target?
 	if (direction < GAMEPAD_JOYSTICK_MID)		// analog is going towards left/up
 		return std::max((currentValue - increment), GAMEPAD_JOYSTICK_MIN);
