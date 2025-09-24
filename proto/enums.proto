@@ -694,3 +694,11 @@ enum MouseMovementMode
     MOUSE_MOVEMENT_LEFT_ANALOG = 1;
     MOUSE_MOVEMENT_RIGHT_ANALOG = 2;
 };
+
+enum AnalogEmulationInactiveMode
+{
+    option (nanopb_enumopt).long_names = false;
+
+    RETURN_TO_NEUTRAL = 0;
+    STAY_ON_OLD_VALUE = 1;
+}

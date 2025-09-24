@@ -59,6 +59,16 @@ public:
 	bool hasRightAnalogStick {false};
 
 	/**
+	 * @brief Flag to indicate digital pins are mapped to LS axis values.
+	 */
+	bool hasStandaloneLeftAnalogMappings {false};
+
+	/**
+	 * @brief Flag to indicate digital pins are mapped to RS axis values.
+	 */
+	bool hasStandaloneRightAnalogMappings {false};
+
+	/**
 	 * @brief Check for a button press. Used by `pressed[Button]` helper methods.
 	 */
 	inline bool __attribute__((always_inline)) pressedButton(const uint32_t mask) {
