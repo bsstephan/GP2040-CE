@@ -38,7 +38,13 @@ function (compile_proto)
 			-I ${CMAKE_SOURCE_DIR}/proto
 			-I ${CMAKE_SOURCE_DIR}/lib/nanopb/generator/proto
 			${CMAKE_SOURCE_DIR}/proto/config.proto
-		OUTPUT ${PROTO_OUTPUT_DIR}/config.pb.c ${PROTO_OUTPUT_DIR}/config.pb.h ${PROTO_OUTPUT_DIR}/enums.pb.c ${PROTO_OUTPUT_DIR}/enums.pb.h
-		COMMENT "Compiling enums.proto and config.proto"
+		COMMAND ${VENV_BIN_DIR}/python ${NANOPB_GENERATOR}
+			-q
+			-D ${PROTO_OUTPUT_DIR}
+			-I ${CMAKE_SOURCE_DIR}/proto
+			-I ${CMAKE_SOURCE_DIR}/lib/nanopb/generator/proto
+			${CMAKE_SOURCE_DIR}/proto/runtime_config.proto
+		OUTPUT ${PROTO_OUTPUT_DIR}/config.pb.c ${PROTO_OUTPUT_DIR}/config.pb.h ${PROTO_OUTPUT_DIR}/runtime_config.pb.c ${PROTO_OUTPUT_DIR}/runtime_config.pb.h ${PROTO_OUTPUT_DIR}/enums.pb.c ${PROTO_OUTPUT_DIR}/enums.pb.h
+		COMMENT "Compiling enums.proto, config.proto, and runtime_config.proto"
 	)
 endfunction()
