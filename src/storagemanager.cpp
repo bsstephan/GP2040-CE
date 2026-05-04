@@ -23,22 +23,14 @@
 
 void Storage::init() {
 	systemFlashSize = System::getPhysicalFlash(); // System Flash Size must be called once
-	EEPROM.start();
+	EEPROM.userConfigStart();
 	ConfigUtils::load(config);
-}
-
-/**
- * @brief Save the config, but only if it is safe to (as in USB host is not being used.)
- */
-bool Storage::save()
-{
-	return save(false);
 }
 
 /**
  * @brief Save the config; if forcing a save is requested, or if USB host is not enabled, this will write to flash.
  */
-bool Storage::save(const bool force) {
+bool Storage::saveUserConfig(const bool force) {
 	// Conditions for saving:
 	//   1. Force = True
 	//   2. Input Mode NOT (PS4/PS5 with USB enabled)
@@ -51,12 +43,12 @@ bool Storage::save(const bool force) {
 		return false;
 	}
 
-	return ConfigUtils::save(config);
+	return ConfigUtils::saveUserConfig(config);
 }
 
 void Storage::ResetSettings()
 {
-	EEPROM.reset();
+	EEPROM.userConfigReset();
 	watchdog_reboot(0, SRAM_END, 2000);
 }
 

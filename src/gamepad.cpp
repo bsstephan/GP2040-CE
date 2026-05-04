@@ -589,7 +589,7 @@ void Gamepad::processHotkeyAction(GamepadHotkey action) {
 			break;
 		case HOTKEY_SAVE_CONFIG:
 			if (action != lastAction) {
-				Storage::getInstance().save(true);
+				Storage::getInstance().saveUserConfig(true);
 			}
 			break;
 		case HOTKEY_CAPTURE_BUTTON:

@@ -48,8 +48,7 @@ public:
 	BootModeOptions& getBootModeOptions() { return config.bootModeOptions; }
 
 	void init();
-	bool save();
-	bool save(const bool force);
+	bool saveUserConfig(const bool force);
 
 	void SetGamepad(Gamepad *); 		// MPGS Gamepad Get/Set
 	Gamepad * GetGamepad();

@@ -6,7 +6,7 @@
 
 namespace ConfigUtils {
     void load(Config& config);
-    bool save(Config& config);
+    bool saveUserConfig(Config& config);
     
     void initUnsetPropertiesWithDefaults(Config& config);
 

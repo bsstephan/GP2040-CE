@@ -151,7 +151,7 @@ void GP2040::setup() {
 
 		// save to match user expectations on choosing mode at boot, and this is
 		// before USB host will be used so we can force it to ignore the check
-		if (inputModeChanged || profileChanged) Storage::getInstance().save(true);
+		if (inputModeChanged || profileChanged) Storage::getInstance().saveUserConfig(true);
 	}
 
 	// register system event handlers
@@ -570,7 +570,7 @@ void GP2040::checkProcessedState(const GamepadState& prevState, const GamepadSta
 void GP2040::checkSaveRebootState() {
 	if (saveRequested) {
 		saveRequested = false;
-		Storage::getInstance().save(forceSave);
+		Storage::getInstance().saveUserConfig(forceSave);
 	}
 
 	if (rebootRequested) {

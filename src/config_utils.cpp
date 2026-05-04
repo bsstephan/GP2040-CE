@@ -1889,7 +1889,8 @@ static const uint32_t FOOTER_MAGIC = 0xd2f1e365;
 
 // Verify that the maximum size of the serialized Config object fits into the allocated flash block
 #if defined(Config_size)
-    static_assert(Config_size + sizeof(ConfigFooter) <= EEPROM_SIZE_BYTES, "Maximum size of Config exceeds the maximum size allocated for FlashPROM");
+    static_assert(Config_size + sizeof(ConfigFooter) <= UCONFIG_EEPROM_SIZE_BYTES,
+            "Maximum size of Config exceeds the maximum size allocated for FlashPROM");
 #else
     #error "Maximum size of Config cannot be determined statically, make sure that you do not use any dynamically sized arrays or strings"
 #endif
@@ -1898,7 +1899,7 @@ static bool loadConfigInner(Config& config)
 {
     config = Config Config_init_zero;
 
-    const uint8_t* flashEnd = reinterpret_cast<const uint8_t*>(EEPROM_ADDRESS_START) + EEPROM_SIZE_BYTES;
+    const uint8_t* flashEnd = reinterpret_cast<const uint8_t*>(UCONFIG_EEPROM_ADDRESS_START) + UCONFIG_EEPROM_SIZE_BYTES;
     const ConfigFooter& footer = *reinterpret_cast<const ConfigFooter*>(flashEnd - sizeof(ConfigFooter));
 
     // Check for presence of magic value
@@ -1907,8 +1908,8 @@ static bool loadConfigInner(Config& config)
         return false;
     }
 
-        // Check if dataSize exceeds the reserved space
-    if (footer.dataSize + sizeof(ConfigFooter) > EEPROM_SIZE_BYTES)
+    // Check if dataSize exceeds the reserved space
+    if (footer.dataSize + sizeof(ConfigFooter) > UCONFIG_EEPROM_SIZE_BYTES)
     {
         return false;
     }
@@ -1971,7 +1972,7 @@ void ConfigUtils::load(Config& config)
     config.has_boardVersion = true;
 
     // Save, to make sure we persist any performed migration steps
-    save(config);
+    saveUserConfig(config);
 }
 
 static void setHasFlags(const pb_msgdesc_t* fields, void* s)
@@ -2032,7 +2033,7 @@ static void setHasFlags(const pb_msgdesc_t* fields, void* s)
     } while (pb_field_iter_next(&iter));
 }
 
-bool ConfigUtils::save(Config& config)
+bool ConfigUtils::saveUserConfig(Config& config)
 {
     // We only allow saves from core0. Saves from core1 have to be marshalled to core0.
     assert(get_core_num() == 0);
@@ -2047,7 +2048,8 @@ bool ConfigUtils::save(Config& config)
     setHasFlags(Config_fields, &config);
 
     // Encode the data directly into the cache of FlashPROM
-    pb_ostream_t outputStream = pb_ostream_from_buffer(EEPROM.writeCache, EEPROM_SIZE_BYTES - sizeof(ConfigFooter));
+    pb_ostream_t outputStream = pb_ostream_from_buffer(EEPROM.userConfigWriteCache,
+            UCONFIG_EEPROM_SIZE_BYTES - sizeof(ConfigFooter));
     if (!pb_encode(&outputStream, Config_fields, &config))
     {
         return false;
@@ -2056,11 +2058,12 @@ bool ConfigUtils::save(Config& config)
     // Create the new footer
     ConfigFooter newFooter;
     newFooter.dataSize = outputStream.bytes_written;
-    newFooter.dataCrc = CRC32::calculate(EEPROM.writeCache, newFooter.dataSize);
+    newFooter.dataCrc = CRC32::calculate(EEPROM.userConfigWriteCache, newFooter.dataSize);
     newFooter.magic = FOOTER_MAGIC;
 
     // The data has changed when the footer content has changed. Only then do we acutally need to save.
-    const ConfigFooter& oldFooter = *reinterpret_cast<ConfigFooter*>(EEPROM.writeCache + EEPROM_SIZE_BYTES - sizeof(ConfigFooter));
+    const ConfigFooter& oldFooter = *reinterpret_cast<ConfigFooter*>(EEPROM.userConfigWriteCache +
+            UCONFIG_EEPROM_SIZE_BYTES - sizeof(ConfigFooter));
     if (newFooter == oldFooter)
     {
         // The data has not changed, no saving neccessary.
@@ -2068,14 +2071,16 @@ bool ConfigUtils::save(Config& config)
     }
 
     // Write the footer
-    ConfigFooter* cacheFooter = reinterpret_cast<ConfigFooter*>(EEPROM.writeCache + EEPROM_SIZE_BYTES - sizeof(ConfigFooter));
+    ConfigFooter* cacheFooter = reinterpret_cast<ConfigFooter*>(EEPROM.userConfigWriteCache +
+            UCONFIG_EEPROM_SIZE_BYTES - sizeof(ConfigFooter));
     memcpy(cacheFooter, &newFooter, sizeof(ConfigFooter));
 
     // Move the encoded data in memory down to the footer
-    memmove(EEPROM.writeCache + EEPROM_SIZE_BYTES - sizeof(ConfigFooter) - newFooter.dataSize, EEPROM.writeCache, newFooter.dataSize);
-    memset(EEPROM.writeCache, 0, EEPROM_SIZE_BYTES - sizeof(ConfigFooter) - newFooter.dataSize);
+    memmove(EEPROM.userConfigWriteCache + UCONFIG_EEPROM_SIZE_BYTES - sizeof(ConfigFooter) -
+            newFooter.dataSize, EEPROM.userConfigWriteCache, newFooter.dataSize);
+    memset(EEPROM.userConfigWriteCache, 0, UCONFIG_EEPROM_SIZE_BYTES - sizeof(ConfigFooter) - newFooter.dataSize);
 
-    EEPROM.commit();
+    EEPROM.userConfigCommit();
 
     return true;
 }

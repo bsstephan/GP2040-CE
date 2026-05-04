@@ -2583,7 +2583,7 @@ DataAndStatusCode setConfig()
     {
         Storage::getInstance().getConfig() = *config.get();
         config.reset();
-        if (Storage::getInstance().save(true))
+        if (Storage::getInstance().saveUserConfig(true))
         {
             return DataAndStatusCode(getConfig(), HttpStatusCode::_200);
         }
